@@ -13,7 +13,7 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOMOC ON)
 
 # Qt5 Packages
-find_package(Qt5 COMPONENTS Core Quick REQUIRED)
+find_package(Qt5 COMPONENTS Core Quick 3DQuick REQUIRED)
 
 # Includes
 include_directories(
@@ -40,5 +40,5 @@ add_definitions(-std=c++11 -Wall -fPIC)
 add_executable(${PROJECT_NAME} ${SOURCES} ${QRC_SOURCES})
 
 # Link Libraries
-set (LIBRARIES core Qt5::Core Qt5::Quick)
+set (LIBRARIES core Qt5::Core Qt5::Quick Qt5::3DQuick)
 target_link_libraries (${PROJECT_NAME} ${LIBRARIES})

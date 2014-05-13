@@ -1,6 +1,6 @@
 #include "situation_layer.h"
 
-#include "i_situation_object.h"
+#include "situation_object.h"
 
 using namespace situation;
 

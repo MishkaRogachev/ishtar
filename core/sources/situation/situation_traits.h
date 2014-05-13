@@ -6,11 +6,11 @@
 
 namespace situation
 {
-    class ISituationObject;
+    class SituationObject;
     class SituationLayer;
     class SituationMap;
 
-    typedef QSharedPointer<ISituationObject> SituationObjectPtr;
+    typedef QSharedPointer<SituationObject> SituationObjectPtr;
     typedef QSharedPointer<SituationLayer> SituationLayerPtr;
     typedef QSharedPointer<SituationMap> SituationMapPtr;
 
