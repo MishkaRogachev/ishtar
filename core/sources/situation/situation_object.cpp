@@ -2,8 +2,27 @@
 
 using namespace situation;
 
-SituationObject::SituationObject()
+class SituationObject::SituationObjectPrivate
+{
+public:
+    common::PointPtrList points;
+};
+
+SituationObject::SituationObject():
+    d(new SituationObjectPrivate())
 {}
 
 SituationObject::~SituationObject()
-{}
+{
+    delete d;
+}
+
+common::PointPtrList SituationObject::points() const
+{
+    return d->points;
+}
+
+common::PointPtrList& SituationObject::rPoints() const
+{
+    return d->points;
+}

@@ -13,13 +13,8 @@ namespace situation
         SituationLayer();
         virtual ~SituationLayer();
 
-        void addObject(const SituationObjectPtr& object);
-        void addObjects(const SituationObjectPtrList& objects);
-        void removeObject(const SituationObjectPtr& object);
-        void removeObjects(const SituationObjectPtrList& objects);
-        void clear();
-
         SituationObjectPtrList objects() const;
+        SituationObjectPtrList& rObjects() const;
 
         void setName(const QString& name);
         QString name() const;
