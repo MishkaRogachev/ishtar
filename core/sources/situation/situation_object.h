@@ -2,14 +2,19 @@
 #define SITUATION_OBJECT_H
 
 #include "point.hpp"
+#include "excodes.h"
 
 namespace situation
 {
     class SituationObject
     {
     public:
-        SituationObject();
+        SituationObject(Excode excode = Excode::Default,
+                        const common::PointPtrList& points = common::PointPtrList());
         virtual ~SituationObject();
+
+        void setExcode(Excode excode);
+        Excode excode() const;
 
         common::PointPtrList points() const;
         common::PointPtrList& rPoints() const;
