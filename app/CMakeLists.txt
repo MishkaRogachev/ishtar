@@ -2,8 +2,7 @@
 cmake_minimum_required(VERSION 2.8.11)
 
 # Project
-set(PROJECT app)
-project(${PROJECT})
+project(app)
 
 # Executable output path
 set(EXECUTABLE_OUTPUT_PATH ${CMAKE_BINARY_DIR}/../result)
@@ -19,6 +18,7 @@ find_package(Qt5 COMPONENTS Core Quick REQUIRED)
 # Includes
 include_directories(
     sources
+    ../core/sources/situation_map
 )
 
 # Sources
@@ -33,14 +33,13 @@ set(RESOURCES
 
 # Compile resources to QRC_SOURCES and add it to include path
 qt5_add_resources(QRC_SOURCES ${RESOURCES})
-#include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
 # Add compiler flags
 add_definitions(-std=c++11 -Wall -fPIC)
 
 # Executable
-add_executable(PROJECT ${SOURCES} ${QRC_SOURCES})
+add_executable(${PROJECT_NAME} ${SOURCES} ${QRC_SOURCES})
 
 # Link Libraries
 set (LIBRARIES core Qt5::Core Qt5::Quick)
-target_link_libraries (PROJECT ${LIBRARIES})
+target_link_libraries (${PROJECT_NAME} ${LIBRARIES})

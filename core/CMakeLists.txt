@@ -2,8 +2,7 @@
 cmake_minimum_required(VERSION 2.8.11)
 
 # Project
-set(PROJECT core)
-project(${PROJECT})
+project(core)
 
 # Library output path
 set(LIBRARY_OUTPUT_PATH ${CMAKE_BINARY_DIR}/../result)
@@ -33,5 +32,5 @@ add_definitions(-std=c++11 -Wall -fPIC)
 add_library(${PROJECT_NAME} STATIC ${SOURCES})
 
 # Link Libraries
-set (LIBRARIES ${QT_LIBRARIES} Qt5::Core)
+set (LIBRARIES Qt5::Core)
 target_link_libraries (${PROJECT_NAME} ${LIBRARIES})

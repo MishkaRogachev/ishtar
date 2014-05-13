@@ -1,18 +1,19 @@
 #ifndef MAP_H
 #define MAP_H
 
-#include <memory>
-
 namespace core
 {
     class SituationMap
     {
     public:
         SituationMap();
+        ~SituationMap();
+
+        void debug();
 
     private:
         class SituationMapPrivate;
-        std::unique_ptr<SituationMapPrivate> d;
+        SituationMapPrivate* d;
     };
 }
 
