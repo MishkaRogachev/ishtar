@@ -1,4 +1,4 @@
-#include "situation_object.h"
+#include "node.h"
 
 using namespace situation;
 

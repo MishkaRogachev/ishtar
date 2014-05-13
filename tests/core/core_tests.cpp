@@ -1,7 +1,7 @@
 #include <QtTest/QtTest>
 
-#include "situation_map_test.h"
-#include "situation_layer_test.h"
+#include "map_test.h"
+#include "layer_test.h"
 
 int main(int argc, char *argv[])
 {

@@ -1,6 +1,6 @@
-#include "situation_layer_test.h"
+#include "layer_test.h"
 
-#include "situation_layer.h"
+#include "layer.h"
 
 using namespace situation;
 

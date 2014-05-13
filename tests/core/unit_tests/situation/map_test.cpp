@@ -1,7 +1,7 @@
-#include "situation_map_test.h"
+#include "map_test.h"
 
-#include "situation_map.h"
-#include "situation_layer.h"
+#include "map.h"
+#include "layer.h"
 
 using namespace situation;
 

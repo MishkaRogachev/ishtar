@@ -1,10 +1,10 @@
-#include "situation_map.h"
+#include "map.h"
 
 #include <QMap>
 #include <QDebug>
 
 #include "defs.h"
-#include "situation_layer.h"
+#include "layer.h"
 
 using namespace defs;
 using namespace situation;

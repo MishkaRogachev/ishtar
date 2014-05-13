@@ -23,9 +23,9 @@ include_directories(
 
 # Sources
 set(SOURCES
-    sources/situation/situation_map.cpp
-    sources/situation/situation_layer.cpp
-    sources/situation/situation_object.cpp
+    sources/situation/map.cpp
+    sources/situation/layer.cpp
+    sources/situation/node.cpp
 )
 
 # Add compiler flags
