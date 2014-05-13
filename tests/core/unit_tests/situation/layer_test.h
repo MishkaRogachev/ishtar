@@ -8,7 +8,8 @@ class LayerTest: public QObject
     Q_OBJECT
 
 private slots:
-    void addAndRemoveObjects();
+    void copy();
+    void equal();
 };
 
 #endif // SITUATION_LAYER_TEST_H

@@ -18,6 +18,7 @@ find_package(Qt5 COMPONENTS Core Test REQUIRED)
 # Includes
 include_directories(
     ../../core/sources/situation
+    ../../common
     unit_tests/situation/
 )
 
@@ -26,6 +27,7 @@ set(TEST_SOURCES
     core_tests.cpp
     unit_tests/situation/map_test.cpp
     unit_tests/situation/layer_test.cpp
+    unit_tests/situation/node_test.cpp
 )
 
 # Add compiler flags

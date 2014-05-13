@@ -34,6 +34,11 @@ Layer& Layer::operator =(const Layer& other)
     return *this;
 }
 
+bool Layer::operator==(const Layer& other)
+{
+    return d->objects == other.d->objects && d->name == other.d->name;
+}
+
 NodePtrList Layer::objects() const
 {
     return d->objects;

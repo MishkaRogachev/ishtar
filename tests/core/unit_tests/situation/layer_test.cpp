@@ -4,7 +4,20 @@
 
 using namespace situation;
 
-void LayerTest::addAndRemoveObjects()
+void LayerTest::copy()
 {
     Layer layer;
+    Layer layer2(layer);
+
+    QVERIFY(layer2 == layer);
+}
+
+void LayerTest::equal()
+{
+    Layer layer;
+    Layer layer2;
+
+    layer2 = layer;
+
+    QVERIFY(layer2 == layer);
 }

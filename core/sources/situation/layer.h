@@ -17,6 +17,7 @@ namespace situation
         virtual ~Layer();
 
         Layer& operator =(const Layer& other);
+        bool operator==(const Layer& other);
 
         NodePtrList objects() const;
         NodePtrList& rObjects() const;
