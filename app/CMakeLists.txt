@@ -18,7 +18,6 @@ find_package(Qt5 COMPONENTS Core Quick REQUIRED)
 # Includes
 include_directories(
     sources
-    ../core/sources/situation_map
 )
 
 # Sources

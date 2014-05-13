@@ -17,12 +17,14 @@ find_package(Qt5 COMPONENTS Core REQUIRED)
 
 # Includes
 include_directories(
-    sources/situation_map
+    sources/situation
+    ../common
 )
 
 # Sources
 set(SOURCES
-    sources/situation_map/situation_map.cpp
+    sources/situation/situation_map.cpp
+    sources/situation/situation_layer.cpp
 )
 
 # Add compiler flags
