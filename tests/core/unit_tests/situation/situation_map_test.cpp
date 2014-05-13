@@ -5,23 +5,23 @@
 
 using namespace situation;
 
-void SituationMapTest::addAndRemoveLayers()
+void MapTest::addAndRemoveLayers()
 {
-    SituationMap map;
+    Map map;
 
-    map.addLayer(SituationLayerPtr());
-    map.removeLayer(SituationLayerPtr());
+    map.addLayer(LayerPtr());
+    map.removeLayer(LayerPtr());
 
     QVERIFY(map.layers().isEmpty() == true);
 
-    map.addLayer(SituationLayerPtr(new SituationLayer()));
-    map.addLayer(SituationLayerPtr(new SituationLayer()));
-    map.addLayer(SituationLayerPtr(new SituationLayer()));
-    map.addLayer(SituationLayerPtr());
-    map.addLayer(SituationLayerPtr(new SituationLayer()));
-    map.addLayer(SituationLayerPtr(new SituationLayer()));
+    map.addLayer(LayerPtr(new Layer()));
+    map.addLayer(LayerPtr(new Layer()));
+    map.addLayer(LayerPtr(new Layer()));
+    map.addLayer(LayerPtr());
+    map.addLayer(LayerPtr(new Layer()));
+    map.addLayer(LayerPtr(new Layer()));
 
-    map.removeLayer(SituationLayerPtr());
+    map.removeLayer(LayerPtr());
 
     QVERIFY(map.layers().count() == 5);
 
@@ -29,13 +29,13 @@ void SituationMapTest::addAndRemoveLayers()
 
     QVERIFY(map.layers().isEmpty() == true);
 
-    SituationLayerPtrList list;
+    LayerPtrList list;
 
-    list.append(SituationLayerPtr(new SituationLayer()));
-    list.append(SituationLayerPtr(new SituationLayer()));
-    list.append(SituationLayerPtr(new SituationLayer()));
-    list.append(SituationLayerPtr(new SituationLayer()));
-    list.append(SituationLayerPtr(new SituationLayer()));
+    list.append(LayerPtr(new Layer()));
+    list.append(LayerPtr(new Layer()));
+    list.append(LayerPtr(new Layer()));
+    list.append(LayerPtr(new Layer()));
+    list.append(LayerPtr(new Layer()));
 
 
     map.addLayers(list);

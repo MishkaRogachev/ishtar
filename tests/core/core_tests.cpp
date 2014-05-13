@@ -6,11 +6,11 @@
 int main(int argc, char *argv[])
 {
     {
-        SituationLayerTest test;
+        LayerTest test;
         QTest::qExec(&test);
     }
     {
-        SituationMapTest test;
+        MapTest test;
         QTest::qExec(&test);
     }
 

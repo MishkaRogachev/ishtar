@@ -4,52 +4,52 @@
 
 using namespace situation;
 
-class SituationLayer::SituationLayerPrivate
+class Layer::SituationLayerPrivate
 {
 public:
-    SituationObjectPtrList objects;
+    NodePtrList objects;
     QString name;
 };
 
-SituationLayer::SituationLayer(const SituationObjectPtrList& objects, const QString& name):
+Layer::Layer(const NodePtrList& objects, const QString& name):
     d(new SituationLayerPrivate())
 {
     d->objects = objects;
     d->name = name;
 }
 
-SituationLayer::SituationLayer(const SituationLayer& other):
+Layer::Layer(const Layer& other):
     d(new SituationLayerPrivate(*other.d))
 {}
 
-SituationLayer::~SituationLayer()
+Layer::~Layer()
 {
     delete d;
 }
 
-SituationLayer& SituationLayer::operator =(const SituationLayer& other)
+Layer& Layer::operator =(const Layer& other)
 {
     delete d;
     d = new SituationLayerPrivate(*other.d);
     return *this;
 }
 
-SituationObjectPtrList SituationLayer::objects() const
+NodePtrList Layer::objects() const
 {
     return d->objects;
 }
 
-SituationObjectPtrList& SituationLayer::rObjects() const
+NodePtrList& Layer::rObjects() const
 {
     return d->objects;
 }
 
-void SituationLayer::setName(const QString& name)
+void Layer::setName(const QString& name)
 {
     d->name = name;
 }
 
-QString SituationLayer::name() const
+QString Layer::name() const
 {
     return d->name;
 }

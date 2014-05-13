@@ -6,17 +6,17 @@
 
 namespace situation
 {
-    class SituationObject;
-    class SituationLayer;
-    class SituationMap;
+    class Node;
+    class Layer;
+    class Map;
 
-    typedef QSharedPointer<SituationObject> SituationObjectPtr;
-    typedef QSharedPointer<SituationLayer> SituationLayerPtr;
-    typedef QSharedPointer<SituationMap> SituationMapPtr;
+    typedef QSharedPointer<Node> NodePtr;
+    typedef QSharedPointer<Layer> LayerPtr;
+    typedef QSharedPointer<Map> MapPtr;
 
-    typedef QList<SituationObjectPtr> SituationObjectPtrList;
-    typedef QList<SituationLayerPtr> SituationLayerPtrList;
-    typedef QList<SituationMapPtr> SituationMapPtrList;
+    typedef QList<NodePtr> NodePtrList;
+    typedef QList<LayerPtr> LayerPtrList;
+    typedef QList<MapPtr> MapPtrList;
 }
 
 #endif // SITUATION_TRAITS_H

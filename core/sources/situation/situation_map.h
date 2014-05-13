@@ -5,27 +5,27 @@
 
 namespace situation
 {
-    class SituationMap
+    class Map
     {
     public:
-        SituationMap();
-        virtual ~SituationMap();
+        Map();
+        virtual ~Map();
 
-        void addLayer(const SituationLayerPtr& layer);
-        void addLayers(const SituationLayerPtrList& layers);
-        void removeLayer(const SituationLayerPtr& layer);
-        void removeLayers(const SituationLayerPtrList& layers);
+        void addLayer(const LayerPtr& layer);
+        void addLayers(const LayerPtrList& layers);
+        void removeLayer(const LayerPtr& layer);
+        void removeLayers(const LayerPtrList& layers);
         void clear();
         void rehash();
 
-        SituationLayerPtrList layers() const;
+        LayerPtrList layers() const;
 
     private:
         class SituationMapPrivate;
         SituationMapPrivate* d;
 
-        SituationMap(const SituationMap& other) = delete;
-        SituationMap& operator =(const SituationMap& other) = delete;
+        Map(const Map& other) = delete;
+        Map& operator =(const Map& other) = delete;
     };
 }
 

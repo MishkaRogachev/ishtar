@@ -7,19 +7,19 @@
 
 namespace situation
 {
-    class SituationLayer
+    class Layer
     {
     public:
-        SituationLayer(const SituationObjectPtrList& objects =
-                SituationObjectPtrList(), const QString& name = QString());
-        SituationLayer(const SituationLayer& other);
+        Layer(const NodePtrList& objects =
+                NodePtrList(), const QString& name = QString());
+        Layer(const Layer& other);
 
-        virtual ~SituationLayer();
+        virtual ~Layer();
 
-        SituationLayer& operator =(const SituationLayer& other);
+        Layer& operator =(const Layer& other);
 
-        SituationObjectPtrList objects() const;
-        SituationObjectPtrList& rObjects() const;
+        NodePtrList objects() const;
+        NodePtrList& rObjects() const;
 
         void setName(const QString& name);
         QString name() const;

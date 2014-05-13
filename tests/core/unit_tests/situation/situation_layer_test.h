@@ -3,7 +3,7 @@
 
 #include <QTest>
 
-class SituationLayerTest: public QObject
+class LayerTest: public QObject
 {
     Q_OBJECT
 

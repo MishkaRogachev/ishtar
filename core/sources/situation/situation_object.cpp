@@ -2,41 +2,41 @@
 
 using namespace situation;
 
-class SituationObject::SituationObjectPrivate
+class Node::NodePrivate
 {
 public:
     Excode excode;
     common::PointPtrList points;
 };
 
-SituationObject::SituationObject(Excode excode, const common::PointPtrList& points):
-    d(new SituationObjectPrivate())
+Node::Node(Excode excode, const common::PointPtrList& points):
+    d(new NodePrivate())
 {
     d->excode = excode;
     d->points = points;
 }
 
-SituationObject::~SituationObject()
+Node::~Node()
 {
     delete d;
 }
 
-void SituationObject::setExcode(Excode excode)
+void Node::setExcode(Excode excode)
 {
     d->excode = excode;
 }
 
-Excode SituationObject::excode() const
+Excode Node::excode() const
 {
     return d->excode;
 }
 
-common::PointPtrList SituationObject::points() const
+common::PointPtrList Node::points() const
 {
     return d->points;
 }
 
-common::PointPtrList& SituationObject::rPoints() const
+common::PointPtrList& Node::rPoints() const
 {
     return d->points;
 }

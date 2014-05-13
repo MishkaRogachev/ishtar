@@ -4,7 +4,7 @@
 
 using namespace situation;
 
-void SituationLayerTest::addAndRemoveObjects()
+void LayerTest::addAndRemoveObjects()
 {
-    SituationLayer layer;
+    Layer layer;
 }

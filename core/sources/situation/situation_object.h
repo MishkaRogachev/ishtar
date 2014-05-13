@@ -1,17 +1,17 @@
-#ifndef SITUATION_OBJECT_H
-#define SITUATION_OBJECT_H
+#ifndef SITUATION_NODE_H
+#define SITUATION_NODE_H
 
 #include "point.hpp"
 #include "excodes.h"
 
 namespace situation
 {
-    class SituationObject
+    class Node
     {
     public:
-        SituationObject(Excode excode = Excode::Default,
-                        const common::PointPtrList& points = common::PointPtrList());
-        virtual ~SituationObject();
+        Node(Excode excode = Excode::Default,
+             const common::PointPtrList& points = common::PointPtrList());
+        virtual ~Node();
 
         void setExcode(Excode excode);
         Excode excode() const;
@@ -20,12 +20,12 @@ namespace situation
         common::PointPtrList& rPoints() const;
 
     private:
-        class SituationObjectPrivate;
-        SituationObjectPrivate* d;
+        class NodePrivate;
+        NodePrivate* d;
 
-        SituationObject(const SituationObject& other) = delete;
-        SituationObject& operator =(const SituationObject& other) = delete;
+        Node(const Node& other) = delete;
+        Node& operator =(const Node& other) = delete;
     };
 }
 
-#endif // SITUATION_OBJECT_H
+#endif // SITUATION_NODE_H

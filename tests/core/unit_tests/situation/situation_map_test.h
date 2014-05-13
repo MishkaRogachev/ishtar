@@ -3,7 +3,7 @@
 
 #include <QTest>
 
-class SituationMapTest: public QObject
+class MapTest: public QObject
 {
     Q_OBJECT
 
