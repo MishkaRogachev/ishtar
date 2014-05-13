@@ -3,6 +3,8 @@
 
 #include "situation_traits.h"
 
+#include <QString>
+
 namespace situation
 {
     class SituationLayer
@@ -11,7 +13,16 @@ namespace situation
         SituationLayer();
         virtual ~SituationLayer();
 
+        void addObject(const SituationObjectPtr& object);
+        void addObjects(const SituationObjectPtrList& objects);
+        void removeObject(const SituationObjectPtr& object);
+        void removeObjects(const SituationObjectPtrList& objects);
+        void clear();
+
         SituationObjectPtrList objects() const;
+
+        void setName(const QString& name);
+        QString name() const;
 
     private:
         class SituationLayerPrivate;

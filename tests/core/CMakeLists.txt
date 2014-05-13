@@ -25,6 +25,7 @@ include_directories(
 set(TEST_SOURCES
     core_tests.cpp
     unit_tests/situation/situation_map_test.cpp
+    unit_tests/situation/situation_layer_test.cpp
 )
 
 # Add compiler flags
