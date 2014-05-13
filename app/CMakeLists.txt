@@ -5,6 +5,9 @@ cmake_minimum_required(VERSION 2.8.11)
 set(PROJECT app)
 project(${PROJECT})
 
+# Executable output path
+set(EXECUTABLE_OUTPUT_PATH ${CMAKE_BINARY_DIR}/../result)
+
 # Find includes in corresponding build directories
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 # Instruct CMake to run moc automatically when needed.
@@ -38,6 +41,6 @@ add_definitions(-std=c++11 -Wall -fPIC)
 # Executable
 add_executable(PROJECT ${SOURCES} ${QRC_SOURCES})
 
-# Libraries
-set (LIBRARIES core ${QT_LIBRARIES} Qt5::Core Qt5::Quick)
+# Link Libraries
+set (LIBRARIES core Qt5::Core Qt5::Quick)
 target_link_libraries (PROJECT ${LIBRARIES})
