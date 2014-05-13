@@ -10,8 +10,13 @@ namespace situation
     class SituationLayer
     {
     public:
-        SituationLayer();
+        SituationLayer(const SituationObjectPtrList& objects =
+                SituationObjectPtrList(), const QString& name = QString());
+        SituationLayer(const SituationLayer& other);
+
         virtual ~SituationLayer();
+
+        SituationLayer& operator =(const SituationLayer& other);
 
         SituationObjectPtrList objects() const;
         SituationObjectPtrList& rObjects() const;
@@ -22,9 +27,6 @@ namespace situation
     private:
         class SituationLayerPrivate;
         SituationLayerPrivate* d;
-
-        SituationLayer(const SituationLayer& other) = delete;
-        SituationLayer& operator =(const SituationLayer& other) = delete;
     };
 }
 
