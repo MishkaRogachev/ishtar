@@ -8,7 +8,7 @@ class SituationMapTest: public QObject
     Q_OBJECT
 
 private slots:
-    void testCopyMoveDestruction();
+    void addAndRemoveLayers();
 };
 
 #endif //SITUATION_MAP_TEST_H
