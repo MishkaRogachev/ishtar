@@ -17,7 +17,7 @@ find_package(Qt5 COMPONENTS Core Test REQUIRED)
 
 # Includes
 include_directories(
-    ../../core/source/situation
+    ../../core/sources/situation
     unit_tests/situation/
 )
 

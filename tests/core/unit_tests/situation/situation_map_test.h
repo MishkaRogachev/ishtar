@@ -7,8 +7,8 @@ class SituationMapTest: public QObject
 {
     Q_OBJECT
 
-public slots:
-    void constructionAndDestruction();
+private slots:
+    void testCopyMoveDestruction();
 };
 
 #endif //SITUATION_MAP_TEST_H

@@ -2,17 +2,12 @@
 
 #include "situation_map_test.h"
 
-int main()
+int main(int argc, char *argv[])
 {
-    QList<QObject*> tests;
-
-    tests.append(new SituationMapTest());
-
-    for (QObject* test: tests)
     {
-        QTest::qExec(test);
-        delete test;
+        SituationMapTest test;
+        QTest::qExec(&test);
     }
 
-   return 0;
+    return 0;
 }
