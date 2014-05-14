@@ -30,9 +30,9 @@ Point2Vec Geometry::points() const
     return m_points;
 }
 
-void Geometry::setPoints(const Point2Vec& points)
+Point2Vec& Geometry::rPoints()
 {
-    m_points = points;
+    return m_points;
 }
 
 

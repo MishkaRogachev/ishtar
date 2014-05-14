@@ -15,10 +15,10 @@ namespace situation
         virtual ~Node();
 
         Geometry geometry() const;
-        void setGeometry(const Geometry& geometry);
+        Geometry& rGeometry();
 
         BoundingBox boundingBox() const;
-        void setBoundingBox(const BoundingBox& boundingBox);
+        BoundingBox& rBoundingBox();
 
         NodePtrList childNodes() const;
         NodePtrList& rChildNodes();

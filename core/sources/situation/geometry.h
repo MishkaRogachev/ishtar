@@ -27,7 +27,7 @@ namespace situation
         GeometryPtrList& rChildGeometries();
 
         Point2Vec points() const;
-        void setPoints(const Point2Vec& points);
+        Point2Vec& rPoints();
 
     private:
         GeometryType m_type;

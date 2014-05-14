@@ -13,9 +13,9 @@ Geometry Node::geometry() const
     return m_geometry;
 }
 
-void Node::setGeometry(const Geometry& geometry)
+Geometry& Node::rGeometry()
 {
-    m_geometry = geometry;
+    return m_geometry;
 }
 
 BoundingBox Node::boundingBox() const
@@ -23,9 +23,9 @@ BoundingBox Node::boundingBox() const
     return m_boundingBox;
 }
 
-void Node::setBoundingBox(const BoundingBox& boundingBox)
+BoundingBox& Node::rBoundingBox()
 {
-    m_boundingBox = boundingBox;
+    return m_boundingBox;
 }
 
 NodePtrList Node::childNodes() const
