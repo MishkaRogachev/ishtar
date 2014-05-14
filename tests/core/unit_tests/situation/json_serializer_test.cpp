@@ -39,3 +39,14 @@ void JSonSerializerTest::byteArraySerialization()
 
     QVERIFY(node = node2);
 }
+
+void JSonSerializerTest::saveAndLoad()
+{
+    JSonNodeSerializer serializer;
+    NodePtr node = buildTestNode();
+
+    serializer.save(node, "test.json");
+    NodePtr node2 = serializer.load("test.json");
+
+    QVERIFY(node = node2);
+}

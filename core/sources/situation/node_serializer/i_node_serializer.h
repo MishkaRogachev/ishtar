@@ -12,6 +12,9 @@ namespace situation
     public:
         INodeSerializer();
 
+        bool save(const NodePtr& node, const QString& name) const;
+        NodePtr load(const QString& name) const;
+
         virtual QByteArray toByteArray(const NodePtr& node) const = 0;
         virtual NodePtr fromByteArray(const QByteArray& array) const = 0;
     };
