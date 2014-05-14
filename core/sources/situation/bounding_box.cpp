@@ -2,7 +2,10 @@
 
 using namespace situation;
 
-BoundingBox::BoundingBox()
+BoundingBox::BoundingBox(qreal minX, qreal minY, qreal minZ,
+                         qreal maxX, qreal maxY, qreal maxZ):
+    m_min(minX, minY, minZ),
+    m_max(maxX, maxY, maxZ)
 {}
 
 QVector3D BoundingBox::min() const

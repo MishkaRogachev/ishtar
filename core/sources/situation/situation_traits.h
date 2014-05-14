@@ -10,11 +10,13 @@ namespace situation
 {
     class Point;
     class Geometry;
+    class BoundingBox;
     class Node;
 
     typedef QVector< QVector< QVector3D > > QVector3D2Vec;
 
     typedef QSharedPointer<Geometry> GeometryPtr;
+    typedef QSharedPointer<BoundingBox> BoundingBoxPtr;
     typedef QSharedPointer<Node> NodePtr;
 
     typedef QList<GeometryPtr> GeometryPtrList;

@@ -5,6 +5,8 @@
 #include <QDebug>
 
 #include "node.h"
+#include "geometry.h"
+#include "bounding_box.h"
 
 namespace keys
 {
@@ -12,6 +14,7 @@ namespace keys
     const QString feature = "Feature";
     const QString featureCollection = "FeatureCollection";
     const QString id = "id";
+    const QString bBox = "bbox";
     const QString gemetry = "gemetry";
     const QString gemetryType = "type";
     const QString point = "Point";
@@ -175,7 +178,20 @@ QJsonObject JSonNodeSerializer::toJSonObject(const NodePtr& node) const
         nodeJSon.insert(keys::gemetry, ::geometryToJSon(node->geometry()));
     }
 
-    //TODO: bbox
+    if (node->boundingBox())
+    {
+        QJsonArray bBoxJSon;
+
+        bBoxJSon.append(node->boundingBox()->min().x());
+        bBoxJSon.append(node->boundingBox()->min().y());
+        bBoxJSon.append(node->boundingBox()->min().z());
+
+        bBoxJSon.append(node->boundingBox()->max().x());
+        bBoxJSon.append(node->boundingBox()->max().y());
+        bBoxJSon.append(node->boundingBox()->max().z());
+
+        nodeJSon.insert(keys::bBox, bBoxJSon);
+    }
 
     if (!node->childNodes().isEmpty())
     {

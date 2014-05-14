@@ -4,6 +4,8 @@
 
 #include "node_serializer/json_node_serializer.h"
 #include "node.h"
+#include "geometry.h"
+#include "bounding_box.h"
 
 using namespace situation;
 
@@ -14,8 +16,10 @@ NodePtr buildTestNode()
                                       QVector3D(2.0, 3.0, 1.5)
                                   }}));
 
+    BoundingBoxPtr bbox(new BoundingBox(2.0, 3.0, 1.5, 2.0, 3.0, 1.5));
+
     NodePtr rootNode(new Node("root"));
-    rootNode->rChildNodes().append(NodePtr(new Node("point", pointGeometry)));
+    rootNode->rChildNodes().append(NodePtr(new Node("point", pointGeometry, bbox)));
 
     return rootNode;
 }

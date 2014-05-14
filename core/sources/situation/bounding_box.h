@@ -8,7 +8,8 @@ namespace situation
     class BoundingBox
     {
     public:
-        BoundingBox();
+        BoundingBox(qreal minX, qreal minY, qreal minZ,
+                    qreal maxX, qreal maxY, qreal maxZ);
 
         QVector3D min() const;
         QVector3D& rMin();

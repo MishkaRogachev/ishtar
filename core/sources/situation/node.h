@@ -3,9 +3,6 @@
 
 #include "situation_traits.h"
 
-#include "bounding_box.h"
-#include "geometry.h"
-
 #include <QVariant>
 
 namespace situation
@@ -15,7 +12,7 @@ namespace situation
     public:
         Node(const QString& id = QString(),
              const GeometryPtr& geometry = GeometryPtr(),
-             const BoundingBox& boundingBox = BoundingBox(),
+             const BoundingBoxPtr& boundingBox = BoundingBoxPtr(),
              const QVariant& properties = QVariant(),
              const NodePtrList& childNodes = NodePtrList());
 
@@ -25,8 +22,8 @@ namespace situation
         GeometryPtr geometry() const;
         void setGeometry(const GeometryPtr& geometry);
 
-        BoundingBox boundingBox() const;
-        BoundingBox& rBoundingBox();
+        BoundingBoxPtr boundingBox() const;
+        void setBoundingBox(const BoundingBoxPtr& boundingBox);
 
         QVariant properties() const;
         QVariant& rProperties();
@@ -37,7 +34,7 @@ namespace situation
     private:
         QString m_id;
         GeometryPtr m_geometry;
-        BoundingBox m_boundingBox;
+        BoundingBoxPtr m_boundingBox;
         QVariant m_properties;
         NodePtrList m_childNodes;
     };
