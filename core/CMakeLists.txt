@@ -27,6 +27,7 @@ set(SOURCES
     sources/situation/node.cpp
     sources/situation/node_serializer/i_node_serializer.cpp
     sources/situation/node_serializer/json_node_serializer.cpp
+    sources/situation/node_serializer/parsers/json_geometry_parser.cpp
 )
 
 # Add compiler flags

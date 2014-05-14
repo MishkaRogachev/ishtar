@@ -5,9 +5,6 @@
 
 using namespace situation;
 
-INodeSerializer::INodeSerializer()
-{}
-
 bool INodeSerializer::save(const NodePtr& node, const QString& name) const
 {
     QFile file(name);

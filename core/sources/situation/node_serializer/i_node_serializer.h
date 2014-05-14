@@ -10,8 +10,6 @@ namespace situation
     class INodeSerializer
     {
     public:
-        INodeSerializer();
-
         bool save(const NodePtr& node, const QString& name) const;
         NodePtr load(const QString& name) const;
 
