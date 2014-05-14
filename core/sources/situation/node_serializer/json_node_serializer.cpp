@@ -194,8 +194,6 @@ QJsonObject JSonNodeSerializer::toJSonObject(const NodePtr& node) const
 
 NodePtr JSonNodeSerializer::fromJSonObject(const QJsonObject& object) const
 {
-    qDebug() << object;
-
     NodePtr node(new Node());
     node->setId(object.value(keys::id).toString());
 
