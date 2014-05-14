@@ -29,7 +29,17 @@ namespace situation
         QVariant& rProperties();
 
         NodePtrList childNodes() const;
-        NodePtrList& rChildNodes();
+        void setChildNodes(const NodePtrList& childNodes);
+
+        bool isEqual(const Node& other) const;
+        inline friend bool operator==(const Node& left, const Node& right)
+        {
+            return left.isEqual(right);
+        }
+        inline friend bool operator!=(const Node& left, const Node& right)
+        {
+            return !left.isEqual(right);
+        }
 
     private:
         QString m_id;

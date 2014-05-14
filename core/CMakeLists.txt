@@ -17,6 +17,7 @@ find_package(Qt5 COMPONENTS Core Gui REQUIRED)
 
 # Includes
 include_directories(
+    ../common
     sources/situation
 )
 

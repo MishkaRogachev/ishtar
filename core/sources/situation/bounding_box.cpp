@@ -28,3 +28,9 @@ QVector3D& BoundingBox::rMax()
     return m_max;
 }
 
+bool BoundingBox::isEqual(const BoundingBox& other) const
+{
+    return this->m_max == other.m_max && this->m_min == other.m_min;
+}
+
+

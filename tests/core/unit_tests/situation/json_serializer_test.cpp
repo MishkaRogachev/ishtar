@@ -11,7 +11,7 @@ using namespace situation;
 
 NodePtr buildTestNode()
 {
-    GeometryPtr pointGeometry(new Geometry(GeometryType::Point,
+    GeometryPtr pointGeometry(new Geometry(GeometryType::Line,
                                   {{
                                       QVector3D(2.0, 3.0, 1.5),
                                       QVector3D(3.5, -1.0, 0.5)
@@ -20,7 +20,9 @@ NodePtr buildTestNode()
     BoundingBoxPtr bbox(new BoundingBox(2.0, -1.0, 0.5, 3.5, 3.0, 1.5));
 
     NodePtr rootNode(new Node("root"));
-    rootNode->rChildNodes().append(NodePtr(new Node("line", pointGeometry, bbox)));
+    rootNode->setChildNodes( {
+                                 NodePtr(new Node("line", pointGeometry, bbox))
+                             } );
 
     return rootNode;
 }
@@ -32,7 +34,7 @@ void JSonSerializerTest::jsonTextSerialization()
     NodePtr node = buildTestNode();
     NodePtr node2 = serializer.fromJSonObject(serializer.toJSonObject(node));
 
-    QVERIFY(node.data() == node2.data());
+    QVERIFY(*node.data() == *node2.data());
 }
 
 void JSonSerializerTest::jsonBinarySerialization()
@@ -42,7 +44,7 @@ void JSonSerializerTest::jsonBinarySerialization()
     NodePtr node = buildTestNode();
     NodePtr node2 = serializer.fromJSonObject(serializer.toJSonObject(node));
 
-    QVERIFY(node.data() == node2.data());
+    QVERIFY(*node.data() == *node2.data());
 }
 
 void JSonSerializerTest::byteArraySerialization()
@@ -52,7 +54,7 @@ void JSonSerializerTest::byteArraySerialization()
     NodePtr node = buildTestNode();
     NodePtr node2 = serializer.fromByteArray(serializer.toByteArray(node));
 
-    QVERIFY(node.data() == node2.data());
+    QVERIFY(*node.data() == *node2.data());
 }
 
 void JSonSerializerTest::saveAndLoad()
@@ -63,5 +65,5 @@ void JSonSerializerTest::saveAndLoad()
     serializer.save(node, "test.json");
     NodePtr node2 = serializer.load("test.json");
 
-    QVERIFY(node.data() == node2.data());
+    QVERIFY(*node.data() == *node2.data());
 }

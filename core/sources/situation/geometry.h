@@ -28,6 +28,12 @@ namespace situation
         QVector3D2Vec points() const;
         void setPoints(const QVector3D2Vec& points);
 
+        bool isEqual(const Geometry& other) const;
+        inline friend bool operator==(const Geometry& left, const Geometry& right)
+        {
+            return left.isEqual(right);
+        }
+
     private:
         GeometryType m_type;
         QVector3D2Vec m_points;

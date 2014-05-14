@@ -1,7 +1,9 @@
 #include "node.h"
 
-using namespace situation;
+#include "bounding_box.h"
+#include "geometry.h"
 
+using namespace situation;
 
 Node::Node(const QString& id,
            const GeometryPtr& geometry,
@@ -60,9 +62,32 @@ NodePtrList Node::childNodes() const
     return m_childNodes;
 }
 
-NodePtrList& Node::rChildNodes()
+void Node::setChildNodes(const NodePtrList& childNodes)
 {
-    return m_childNodes;
+    m_childNodes = childNodes;
+}
+
+bool Node::isEqual(const Node& other) const
+{
+    if (m_boundingBox.isNull() || other.m_boundingBox.isNull())
+    {
+        if (m_boundingBox != other.m_boundingBox) return false;
+    }
+    else
+    {
+        if (!m_boundingBox->isEqual(*other.m_boundingBox)) return false;
+    }
+
+    if (m_geometry.isNull() || other.m_geometry.isNull())
+    {
+        if (m_geometry != other.m_geometry) return false;
+    }
+    else
+    {
+        if (!m_geometry->isEqual(*other.m_geometry)) return false;
+    }
+
+    return true;
 }
 
 
