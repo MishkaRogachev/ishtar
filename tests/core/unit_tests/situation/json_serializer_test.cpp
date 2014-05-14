@@ -1,5 +1,7 @@
 #include "json_serializer_test.h"
 
+#include <QDebug>
+
 #include "node_serializer/json_node_serializer.h"
 #include "node.h"
 
@@ -7,13 +9,13 @@ using namespace situation;
 
 NodePtr buildTestNode()
 {
+    GeometryPtr pointGeometry(new Geometry(GeometryType::Point,
+                                  {{
+                                      QVector3D(2.0, 3.0, 1.5)
+                                  }}));
+
     NodePtr rootNode(new Node("root"));
-    rootNode->childNodes().append(NodePtr(new Node("point",
-                                                   Geometry(
-                                                    GeometryType::Point,
-                                                    {{
-                                                        QVector3D(2.0, 3.0, 1.5)
-                                                    }}))));
+    rootNode->rChildNodes().append(NodePtr(new Node("point", pointGeometry)));
 
     return rootNode;
 }

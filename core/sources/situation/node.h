@@ -14,7 +14,7 @@ namespace situation
     {
     public:
         Node(const QString& id = QString(),
-             const Geometry& geometry = Geometry(),
+             const GeometryPtr& geometry = GeometryPtr(),
              const BoundingBox& boundingBox = BoundingBox(),
              const QVariant& properties = QVariant(),
              const NodePtrList& childNodes = NodePtrList());
@@ -22,8 +22,8 @@ namespace situation
         QString id() const;
         void setId(const QString& id);
 
-        Geometry geometry() const;
-        Geometry& rGeometry();
+        GeometryPtr geometry() const;
+        void setGeometry(const GeometryPtr& geometry);
 
         BoundingBox boundingBox() const;
         BoundingBox& rBoundingBox();
@@ -36,7 +36,7 @@ namespace situation
 
     private:
         QString m_id;
-        Geometry m_geometry;
+        GeometryPtr m_geometry;
         BoundingBox m_boundingBox;
         QVariant m_properties;
         NodePtrList m_childNodes;

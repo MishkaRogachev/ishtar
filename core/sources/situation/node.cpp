@@ -4,7 +4,7 @@ using namespace situation;
 
 
 Node::Node(const QString& id,
-           const Geometry& geometry,
+           const GeometryPtr& geometry,
            const BoundingBox& boundingBox,
            const QVariant& properties,
            const NodePtrList& childNodes):
@@ -25,14 +25,14 @@ void Node::setId(const QString& id)
     m_id = id;
 }
 
-Geometry Node::geometry() const
+GeometryPtr Node::geometry() const
 {
     return m_geometry;
 }
 
-Geometry& Node::rGeometry()
+void Node::setGeometry(const GeometryPtr& geometry)
 {
-    return m_geometry;
+    m_geometry = geometry;
 }
 
 BoundingBox Node::boundingBox() const
