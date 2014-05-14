@@ -3,6 +3,8 @@
 
 #include "situation_traits.h"
 
+#include <QByteArray>
+
 namespace situation
 {
     class INodeSerializer
@@ -10,7 +12,8 @@ namespace situation
     public:
         INodeSerializer();
 
-        virtual QByteArray serialize(const NodePtr& node) const = 0;
+        virtual QByteArray toByteArray(const NodePtr& node) const = 0;
+        virtual NodePtr fromByteArray(const QByteArray& array) const = 0;
     };
 }
 
