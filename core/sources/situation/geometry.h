@@ -26,7 +26,7 @@ namespace situation
         GeometryPtrList& rChildGeometries();
 
         QVector3D2Vec points() const;
-        QVector3D2Vec& rPoints();
+        void setPoints(const QVector3D2Vec& points);
 
     private:
         GeometryType m_type;

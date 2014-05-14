@@ -32,10 +32,7 @@ QVector3D2Vec Geometry::points() const
     return m_points;
 }
 
-QVector3D2Vec& Geometry::rPoints()
+void Geometry::setPoints(const QVector3D2Vec& points)
 {
-    return m_points;
+    m_points = points;
 }
-
-
-

@@ -13,13 +13,14 @@ NodePtr buildTestNode()
 {
     GeometryPtr pointGeometry(new Geometry(GeometryType::Point,
                                   {{
-                                      QVector3D(2.0, 3.0, 1.5)
+                                      QVector3D(2.0, 3.0, 1.5),
+                                      QVector3D(3.5, -1.0, 0.5)
                                   }}));
 
-    BoundingBoxPtr bbox(new BoundingBox(2.0, 3.0, 1.5, 2.0, 3.0, 1.5));
+    BoundingBoxPtr bbox(new BoundingBox(2.0, -1.0, 0.5, 3.5, 3.0, 1.5));
 
     NodePtr rootNode(new Node("root"));
-    rootNode->rChildNodes().append(NodePtr(new Node("point", pointGeometry, bbox)));
+    rootNode->rChildNodes().append(NodePtr(new Node("line", pointGeometry, bbox)));
 
     return rootNode;
 }

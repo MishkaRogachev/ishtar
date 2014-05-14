@@ -18,9 +18,52 @@ namespace keys
     const QString geometries = "geometries";
 }
 
+namespace
+{
+    QJsonArray pointsToJSonArray(const QVector< QVector3D > points)
+    {
+        QJsonArray arrayJSon;
+
+        for (const QVector3D& point: points)
+        {
+            QJsonArray pointArray;
+
+            pointArray.append(point.x());
+            pointArray.append(point.y());
+            pointArray.append(point.z());
+
+            arrayJSon.append(pointArray);
+        }
+
+        return arrayJSon;
+    }
+
+    QVector< QVector3D > jSonArrayToPoints(const QJsonArray& arrayJSon)
+    {
+        QVector< QVector3D > points;
+
+        for (const QJsonValue& value: arrayJSon)
+        {
+            QJsonArray array = value.toArray();
+
+            if (array.count() < 3) continue;
+
+            QVector3D point;
+
+            point.setX(array.first().toDouble());
+            point.setY(array.at(1).toDouble());
+            point.setZ(array.at(2).toDouble());
+
+            points.append(point);
+        }
+
+        return points;
+    }
+}
+
 using namespace situation;
 
-QJsonObject JSonGeometryParser::parse(const GeometryPtr& geometry)
+QJsonObject JSonGeometryParser::parseGeometry(const GeometryPtr& geometry)
 {
     QJsonObject geometryJSon;
 
@@ -39,26 +82,12 @@ QJsonObject JSonGeometryParser::parse(const GeometryPtr& geometry)
         {
             for (const auto& array: geometry->points())
             {
-                QJsonArray pointsArrayJSon;
-
-                for (const QVector3D& point: array)
-                {
-                    pointsArrayJSon.append(point.x());
-                    pointsArrayJSon.append(point.y());
-                    pointsArrayJSon.append(point.z());
-                }
-
-                arrayJSon.append(pointsArrayJSon);
+                arrayJSon.append(::pointsToJSonArray(array));
             }
         }
         else
         {
-            for (const QVector3D& point: geometry->points().first())
-            {
-                arrayJSon.append(point.x());
-                arrayJSon.append(point.y());
-                arrayJSon.append(point.z());
-            }
+            arrayJSon.append(pointsToJSonArray(geometry->points().first()));
         }
 
         geometryJSon.insert(keys::coordinates, arrayJSon);
@@ -70,7 +99,7 @@ QJsonObject JSonGeometryParser::parse(const GeometryPtr& geometry)
 
         for (const GeometryPtr& childGeometry: geometry->childGeometries())
         {
-            childGeometryJSon.append(JSonGeometryParser::parse(childGeometry));
+            childGeometryJSon.append(JSonGeometryParser::parseGeometry(childGeometry));
         }
         geometryJSon.insert(keys::geometries, childGeometryJSon);
     }
@@ -125,4 +154,83 @@ QString JSonGeometryParser::geometryTypeString(const GeometryPtr& geometry)
         return keys::geometryCollection;
     }
     return QString();
+}
+
+GeometryPtr JSonGeometryParser::parseJson(const QJsonObject& object)
+{
+    if (object.isEmpty()) return GeometryPtr();
+
+    GeometryPtr geometry(new Geometry());
+
+    const QString& type = object.value(keys::geometryType).toString();
+
+    if (type == keys::point ||
+        type == keys::multiPoint)
+    {
+        geometry->setType(GeometryType::Point);
+    }
+    else
+    if (type == keys::line ||
+        type == keys::multiLine)
+    {
+        geometry->setType(GeometryType::Line);
+    }
+    else
+    if (type == keys::polygone ||
+        type == keys::multiPolygone)
+    {
+        geometry->setType(GeometryType::Polygone);
+    }
+    else
+    if (type == keys::geometryCollection)
+    {
+        geometry->setType(GeometryType::Collection);
+    }
+
+    const QJsonArray& coordinatesArray = object.value(keys::coordinates).toArray();
+
+    if (!coordinatesArray.isEmpty())
+    {
+        //TODO: wrong
+        QVector3D2Vec points;
+
+        for (const QJsonValue& pointsValue: coordinatesArray)
+        {
+            points.append(::jSonArrayToPoints(pointsValue.toArray()));
+        }
+
+        geometry->setPoints(points);
+    }
+
+//    if (!geometry->points().isEmpty())
+//    {
+//        QJsonArray arrayJSon;
+
+//        if (geometry->points().count() > 1)
+//        {
+//            for (const auto& array: geometry->points())
+//            {
+//                arrayJSon.append(::pointsToJSonArray(array));
+//            }
+//        }
+//        else
+//        {
+//            arrayJSon.append(pointsToJSonArray(geometry->points().first()));
+//        }
+
+//        geometryJSon.insert(keys::coordinates, arrayJSon);
+//    }
+
+//    if (!geometry->childGeometries().isEmpty())
+//    {
+//        QJsonArray childGeometryJSon;
+
+//        for (const GeometryPtr& childGeometry: geometry->childGeometries())
+//        {
+//            childGeometryJSon.append(JSonGeometryParser::parseGeometry(childGeometry));
+//        }
+//        geometryJSon.insert(keys::geometries, childGeometryJSon);
+//    }
+
+    return geometry;
 }

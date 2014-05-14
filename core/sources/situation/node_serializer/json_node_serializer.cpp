@@ -68,7 +68,7 @@ QJsonObject JSonNodeSerializer::toJSonObject(const NodePtr& node) const
     if (node->geometry())
     {
         nodeJSon.insert(keys::geometry,
-                        JSonGeometryParser::parse(node->geometry()));
+                        JSonGeometryParser::parseGeometry(node->geometry()));
     }
 
     if (node->boundingBox())
@@ -105,6 +105,9 @@ NodePtr JSonNodeSerializer::fromJSonObject(const QJsonObject& object) const
 {
     NodePtr node(new Node());
     node->setId(object.value(keys::id).toString());
+
+    node->setGeometry(JSonGeometryParser::parseJson(
+                          object.value(keys::geometry).toObject()));
 
     return node;
 }
