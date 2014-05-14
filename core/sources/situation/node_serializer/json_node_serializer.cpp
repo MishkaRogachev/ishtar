@@ -17,8 +17,19 @@ QByteArray JSonNodeSerializer::toByteArray(const NodePtr& node) const
                                 QJsonDocument::Indented);
 }
 
+NodePtr JSonNodeSerializer::fromByteArray(const QByteArray& array) const
+{
+    return this->fromJSonObject(QJsonDocument::fromJson(array).object());
+}
+
 QJsonObject JSonNodeSerializer::toJSonObject(const NodePtr& node) const
 {
     // TODO:
     return QJsonObject();
+}
+
+NodePtr JSonNodeSerializer::fromJSonObject(const QJsonObject& object) const
+{
+    //TODO:
+    return NodePtr();
 }

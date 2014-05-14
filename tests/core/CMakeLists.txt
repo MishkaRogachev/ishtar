@@ -25,6 +25,7 @@ include_directories(
 set(TEST_SOURCES
     core_tests.cpp
     unit_tests/situation/node_test.cpp
+    unit_tests/situation/json_serializer_test.cpp
 )
 
 # Add compiler flags

@@ -13,8 +13,10 @@ namespace situation
         JSonNodeSerializer(bool isCompact = false);
 
         virtual QByteArray toByteArray(const NodePtr& node) const override;
+        virtual NodePtr fromByteArray(const QByteArray& array) const override;
 
         QJsonObject toJSonObject(const NodePtr& node) const;
+        NodePtr fromJSonObject(const QJsonObject& object) const;
 
     private:
         bool isCompact;

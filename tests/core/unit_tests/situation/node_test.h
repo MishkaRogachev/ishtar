@@ -6,7 +6,6 @@
 class NodeTest: public QObject
 {
     Q_OBJECT
-
 };
 
 #endif //SITUATION_NODE_TEST_H
