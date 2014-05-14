@@ -26,8 +26,8 @@ void NodeTest::equal()
         Node node1;
         Node node2;
 
-        node1.setBoundingBox(BoundingBoxPtr(new BoundingBox(0,1,2,3,4,5.0001)));
-        node2.setBoundingBox(BoundingBoxPtr(new BoundingBox(0,1,2,3,4,5.0001)));
+        node1.setBoundingBox(BoundingBoxPtr(new BoundingBox()));
+        node2.setBoundingBox(node1.boundingBox());
 
         QVERIFY(node1 == node2);
     }
@@ -43,14 +43,8 @@ void NodeTest::equal()
         Node node1;
         Node node2;
 
-        node1.setGeometry(GeometryPtr(new Geometry(GeometryType::Point,
-        {{
-            QVector3D(2.45, 3.2345, -1567.555)
-        }})));
-        node2.setGeometry(GeometryPtr(new Geometry(GeometryType::Point,
-        {{
-            QVector3D(2.4500, 3.2345, -1567.555)
-        }})));
+        node1.setGeometry(GeometryPtr(new Geometry()));
+        node2.setGeometry(node1.geometry());
 
         QVERIFY(node1 == node2);
     }

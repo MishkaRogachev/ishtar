@@ -13,7 +13,7 @@ namespace situation
         Node(const QString& id = QString(),
              const GeometryPtr& geometry = GeometryPtr(),
              const BoundingBoxPtr& boundingBox = BoundingBoxPtr(),
-             const QVariant& properties = QVariant(),
+             const QVariantMap& properties = QVariantMap(),
              const NodePtrList& childNodes = NodePtrList());
 
         QString id() const;
@@ -25,8 +25,8 @@ namespace situation
         BoundingBoxPtr boundingBox() const;
         void setBoundingBox(const BoundingBoxPtr& boundingBox);
 
-        QVariant properties() const;
-        QVariant& rProperties();
+        QVariantMap properties() const;
+        void setProperties(const QVariantMap& properties);
 
         NodePtrList childNodes() const;
         void setChildNodes(const NodePtrList& childNodes);
@@ -45,7 +45,7 @@ namespace situation
         QString m_id;
         GeometryPtr m_geometry;
         BoundingBoxPtr m_boundingBox;
-        QVariant m_properties;
+        QVariantMap m_properties;
         NodePtrList m_childNodes;
     };
 }

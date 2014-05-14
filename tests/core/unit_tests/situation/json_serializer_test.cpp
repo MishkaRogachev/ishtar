@@ -34,7 +34,7 @@ void JSonSerializerTest::jsonTextSerialization()
     NodePtr node = buildTestNode();
     NodePtr node2 = serializer.fromJSonObject(serializer.toJSonObject(node));
 
-    QVERIFY(*node.data() == *node2.data());
+    QVERIFY(node->isEqual(*node2));
 }
 
 void JSonSerializerTest::jsonBinarySerialization()
@@ -44,7 +44,7 @@ void JSonSerializerTest::jsonBinarySerialization()
     NodePtr node = buildTestNode();
     NodePtr node2 = serializer.fromJSonObject(serializer.toJSonObject(node));
 
-    QVERIFY(*node.data() == *node2.data());
+    QVERIFY(node->isEqual(*node2));
 }
 
 void JSonSerializerTest::byteArraySerialization()
@@ -54,7 +54,7 @@ void JSonSerializerTest::byteArraySerialization()
     NodePtr node = buildTestNode();
     NodePtr node2 = serializer.fromByteArray(serializer.toByteArray(node));
 
-    QVERIFY(*node.data() == *node2.data());
+    QVERIFY(node->isEqual(*node2));
 }
 
 void JSonSerializerTest::saveAndLoad()
@@ -65,5 +65,5 @@ void JSonSerializerTest::saveAndLoad()
     serializer.save(node, "test.json");
     NodePtr node2 = serializer.load("test.json");
 
-    QVERIFY(*node.data() == *node2.data());
+    QVERIFY(node->isEqual(*node2));
 }

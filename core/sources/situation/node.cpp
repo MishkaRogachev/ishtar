@@ -8,7 +8,7 @@ using namespace situation;
 Node::Node(const QString& id,
            const GeometryPtr& geometry,
            const BoundingBoxPtr& boundingBox,
-           const QVariant& properties,
+           const QVariantMap& properties,
            const NodePtrList& childNodes):
     m_id(id),
     m_geometry(geometry),
@@ -47,14 +47,14 @@ void Node::setBoundingBox(const BoundingBoxPtr& boundingBox)
     m_boundingBox = boundingBox;
 }
 
-QVariant Node::properties() const
+QVariantMap Node::properties() const
 {
     return m_properties;
 }
 
-QVariant& Node::rProperties()
+void Node::setProperties(const QVariantMap& properties)
 {
-    return m_properties;
+    m_properties = properties;
 }
 
 NodePtrList Node::childNodes() const
@@ -69,14 +69,7 @@ void Node::setChildNodes(const NodePtrList& childNodes)
 
 bool Node::isEqual(const Node& other) const
 {
-    if (m_boundingBox.isNull() || other.m_boundingBox.isNull())
-    {
-        if (m_boundingBox != other.m_boundingBox) return false;
-    }
-    else
-    {
-        if (!m_boundingBox->isEqual(*other.m_boundingBox)) return false;
-    }
+    if (m_id != other.m_id) return false;
 
     if (m_geometry.isNull() || other.m_geometry.isNull())
     {
@@ -84,7 +77,26 @@ bool Node::isEqual(const Node& other) const
     }
     else
     {
-        if (!m_geometry->isEqual(*other.m_geometry)) return false;
+        if (m_geometry != other.m_geometry &&
+            !m_geometry->isEqual(*other.m_geometry)) return false;
+    }
+
+    if (m_boundingBox.isNull() || other.m_boundingBox.isNull())
+    {
+        if (m_boundingBox != other.m_boundingBox) return false;
+    }
+    else
+    {   if (m_boundingBox != other.m_boundingBox &&
+            !m_boundingBox->isEqual(*other.m_boundingBox)) return false;
+    }
+
+    if (m_properties != other.m_properties) return false;
+
+    if (m_childNodes.count() != other.m_childNodes.count()) return false;
+
+    for (int i = 0; i < m_childNodes.count(); ++i)
+    {
+        if (!m_childNodes.at(i)->isEqual(*other.m_childNodes.at(i))) return false;
     }
 
     return true;

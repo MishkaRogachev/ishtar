@@ -39,14 +39,14 @@ void Geometry::setPoints(const QVector3D2Vec& points)
 
 bool Geometry::isEqual(const Geometry& other) const
 {
+    if (other.m_points.count() != m_points.count()) return false;
+
     for (int i = 0; i < m_points.count(); ++i)
     {
-        if (other.m_points.count() <= i) return false;
+        if (other.m_points.at(i).count() != m_points.at(i).count()) return false;
 
         for (int j = 0; j < m_points.at(i).count(); ++j)
         {
-            if (other.m_points.at(i).count() <= j) return false;
-
             if (m_points.at(i).at(j) != other.m_points.at(i).at(j)) return false;
         }
     }
