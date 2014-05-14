@@ -25,12 +25,13 @@ GeometryPtrList& Geometry::rChildGeometries()
 {
     return m_childGeometries;
 }
-Point2Vec Geometry::points() const
+
+QVector3D2Vec Geometry::points() const
 {
     return m_points;
 }
 
-Point2Vec& Geometry::rPoints()
+QVector3D2Vec& Geometry::rPoints()
 {
     return m_points;
 }

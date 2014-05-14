@@ -13,7 +13,7 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOMOC ON)
 
 # Qt5 Packages
-find_package(Qt5 COMPONENTS Core REQUIRED)
+find_package(Qt5 COMPONENTS Core Gui REQUIRED)
 
 # Includes
 include_directories(
@@ -22,7 +22,6 @@ include_directories(
 
 # Sources
 set(SOURCES
-    sources/situation/point.cpp
     sources/situation/geometry.cpp
     sources/situation/bounding_box.cpp
     sources/situation/node.cpp
@@ -35,5 +34,5 @@ add_definitions(-std=c++11 -Wall -fPIC)
 add_library(${PROJECT_NAME} STATIC ${SOURCES})
 
 # Link Libraries
-set (LIBRARIES Qt5::Core)
+set (LIBRARIES Qt5::Core Qt5::Gui)
 target_link_libraries (${PROJECT_NAME} ${LIBRARIES})

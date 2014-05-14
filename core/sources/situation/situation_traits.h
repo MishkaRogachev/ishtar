@@ -4,6 +4,7 @@
 #include <QSharedPointer>
 #include <QList>
 #include <QVector>
+#include <QVector3D>
 
 namespace situation
 {
@@ -11,7 +12,7 @@ namespace situation
     class Geometry;
     class Node;
 
-    typedef QVector< QVector< Point > > Point2Vec;
+    typedef QVector< QVector< QVector3D > > QVector3D2Vec;
 
     typedef QSharedPointer<Geometry> GeometryPtr;
     typedef QSharedPointer<Node> NodePtr;

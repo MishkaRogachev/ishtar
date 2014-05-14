@@ -3,8 +3,6 @@
 
 #include "situation_traits.h"
 
-#include "point.h"
-
 namespace situation
 {
     enum class GeometryType
@@ -26,12 +24,12 @@ namespace situation
         GeometryPtrList childGeometries() const;
         GeometryPtrList& rChildGeometries();
 
-        Point2Vec points() const;
-        Point2Vec& rPoints();
+        QVector3D2Vec points() const;
+        QVector3D2Vec& rPoints();
 
     private:
         GeometryType m_type;
-        Point2Vec m_points;
+        QVector3D2Vec m_points;
         GeometryPtrList m_childGeometries;
     };
 }

@@ -13,7 +13,7 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOMOC ON)
 
 # Qt5 Packages
-find_package(Qt5 COMPONENTS Core Test REQUIRED)
+find_package(Qt5 COMPONENTS Core Gui Test REQUIRED)
 
 # Includes
 include_directories(
@@ -34,7 +34,7 @@ add_definitions(-std=c++11 -Wall -fPIC)
 add_executable(${PROJECT_NAME} ${TEST_SOURCES})
 
 # Link Libraries
-set (LIBRARIES core Qt5::Core Qt5::Test)
+set (LIBRARIES core Qt5::Core Qt5::Gui Qt5::Test)
 target_link_libraries (${PROJECT_NAME} ${LIBRARIES} ${QT_QTTEST_LIBRARY})
 
 # Tests
