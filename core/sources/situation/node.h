@@ -3,8 +3,8 @@
 
 #include "situation_traits.h"
 
-#include "geometry.h"
 #include "bounding_box.h"
+#include "geometry.h"
 
 namespace situation
 {
@@ -20,13 +20,13 @@ namespace situation
         BoundingBox boundingBox() const;
         void setBoundingBox(const BoundingBox& boundingBox);
 
-        NodePtrList childrenNodes() const;
-        NodePtrList& rChildrenNodes();
+        NodePtrList childNodes() const;
+        NodePtrList& rChildNodes();
 
     private:
         Geometry m_geometry;
         BoundingBox m_boundingBox;
-        NodePtrList m_childrenNodes;
+        NodePtrList m_childNodes;
     };
 }
 

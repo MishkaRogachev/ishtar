@@ -28,14 +28,14 @@ void Node::setBoundingBox(const BoundingBox& boundingBox)
     m_boundingBox = boundingBox;
 }
 
-NodePtrList Node::childrenNodes() const
+NodePtrList Node::childNodes() const
 {
-    return m_childrenNodes;
+    return m_childNodes;
 }
 
-NodePtrList& Node::rChildrenNodes()
+NodePtrList& Node::rChildNodes()
 {
-    return m_childrenNodes;
+    return m_childNodes;
 }
 
 
