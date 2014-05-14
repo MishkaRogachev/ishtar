@@ -2,11 +2,28 @@
 
 using namespace situation;
 
-Node::Node()
+
+Node::Node(const QString& id,
+           const Geometry& geometry,
+           const BoundingBox& boundingBox,
+           const QVariant& properties,
+           const NodePtrList& childNodes):
+    m_id(id),
+    m_geometry(geometry),
+    m_boundingBox(boundingBox),
+    m_properties(properties),
+    m_childNodes(childNodes)
 {}
 
-Node::~Node()
-{}
+QString Node::id() const
+{
+    return m_id;
+}
+
+void Node::setId(const QString& id)
+{
+    m_id = id;
+}
 
 Geometry Node::geometry() const
 {
@@ -26,6 +43,16 @@ BoundingBox Node::boundingBox() const
 BoundingBox& Node::rBoundingBox()
 {
     return m_boundingBox;
+}
+
+QVariant Node::properties() const
+{
+    return m_properties;
+}
+
+QVariant& Node::rProperties()
+{
+    return m_properties;
 }
 
 NodePtrList Node::childNodes() const

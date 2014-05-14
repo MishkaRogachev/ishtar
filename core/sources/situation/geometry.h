@@ -16,7 +16,8 @@ namespace situation
     class Geometry
     {
     public:
-        Geometry();
+        Geometry(GeometryType type = GeometryType::Point,
+                 const QVector3D2Vec& points = QVector3D2Vec());
 
         GeometryType type() const;
         void setType(GeometryType type);

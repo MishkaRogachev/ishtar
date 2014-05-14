@@ -2,8 +2,9 @@
 
 using namespace situation;
 
-Geometry::Geometry():
-    m_type(GeometryType::Point)
+Geometry::Geometry(GeometryType type, const QVector3D2Vec& points):
+    m_type(type),
+    m_points(points)
 {}
 
 GeometryType Geometry::type() const

@@ -1,6 +1,14 @@
 #include "json_node_serializer.h"
 
 #include <QJsonDocument>
+#include <QDebug>
+
+#include "node.h"
+
+namespace keys
+{
+    const QString id = "id";
+}
 
 using namespace situation;
 
@@ -24,12 +32,20 @@ NodePtr JSonNodeSerializer::fromByteArray(const QByteArray& array) const
 
 QJsonObject JSonNodeSerializer::toJSonObject(const NodePtr& node) const
 {
-    // TODO:
-    return QJsonObject();
+    if (node.isNull()) return QJsonObject();
+
+    QJsonObject json;
+
+    if (!node->id().isEmpty()) json.insert(keys::id, node->id());
+    return json;
 }
 
 NodePtr JSonNodeSerializer::fromJSonObject(const QJsonObject& object) const
 {
-    //TODO:
-    return NodePtr();
+//    qDebug() << object;
+
+    NodePtr node(new Node());
+    node->setId(object.value(keys::id).toString());
+
+    return node;
 }

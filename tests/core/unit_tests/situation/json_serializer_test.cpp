@@ -7,7 +7,13 @@ using namespace situation;
 
 NodePtr buildTestNode()
 {
-    NodePtr rootNode(new Node);
+    NodePtr rootNode(new Node("root"));
+    rootNode->childNodes().append(NodePtr(new Node("point",
+                                                   Geometry(
+                                                    GeometryType::Point,
+                                                    {{
+                                                        QVector3D(2.0, 3.0, 1.5)
+                                                    }}))));
 
     return rootNode;
 }
