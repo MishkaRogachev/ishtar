@@ -7,10 +7,18 @@
 
 namespace situation
 {
+    enum class JSonSerializationType
+    {
+        CompactText,
+        IndentedText,
+        Binary
+    };
+
     class JSonNodeSerializer : public INodeSerializer
     {
     public:
-        JSonNodeSerializer(bool isCompact = false);
+        JSonNodeSerializer(JSonSerializationType type =
+                JSonSerializationType::IndentedText);
 
         virtual QByteArray toByteArray(const NodePtr& node) const override;
         virtual NodePtr fromByteArray(const QByteArray& array) const override;
@@ -19,7 +27,7 @@ namespace situation
         NodePtr fromJSonObject(const QJsonObject& object) const;
 
     private:
-        bool isCompact;
+        JSonSerializationType type;
     };
 }
 #endif // JSON_NODE_SERIALISER_H

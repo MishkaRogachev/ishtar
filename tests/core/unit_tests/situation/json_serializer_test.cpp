@@ -24,14 +24,24 @@ NodePtr buildTestNode()
     return rootNode;
 }
 
-void JSonSerializerTest::jsonSerialization()
+void JSonSerializerTest::jsonTextSerialization()
 {
     JSonNodeSerializer serializer;
 
     NodePtr node = buildTestNode();
     NodePtr node2 = serializer.fromJSonObject(serializer.toJSonObject(node));
 
-    QVERIFY(node = node2);
+    QVERIFY(node.data() == node2.data());
+}
+
+void JSonSerializerTest::jsonBinarySerialization()
+{
+    JSonNodeSerializer serializer(JSonSerializationType::Binary);
+
+    NodePtr node = buildTestNode();
+    NodePtr node2 = serializer.fromJSonObject(serializer.toJSonObject(node));
+
+    QVERIFY(node.data() == node2.data());
 }
 
 void JSonSerializerTest::byteArraySerialization()
@@ -41,7 +51,7 @@ void JSonSerializerTest::byteArraySerialization()
     NodePtr node = buildTestNode();
     NodePtr node2 = serializer.fromByteArray(serializer.toByteArray(node));
 
-    QVERIFY(node = node2);
+    QVERIFY(node.data() == node2.data());
 }
 
 void JSonSerializerTest::saveAndLoad()
@@ -52,5 +62,5 @@ void JSonSerializerTest::saveAndLoad()
     serializer.save(node, "test.json");
     NodePtr node2 = serializer.load("test.json");
 
-    QVERIFY(node = node2);
+    QVERIFY(node.data() == node2.data());
 }

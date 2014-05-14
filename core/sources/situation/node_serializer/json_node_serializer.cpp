@@ -22,22 +22,32 @@ namespace keys
 
 using namespace situation;
 
-JSonNodeSerializer::JSonNodeSerializer(bool isCompact):
+JSonNodeSerializer::JSonNodeSerializer(JSonSerializationType type):
     INodeSerializer(),
-    isCompact(isCompact)
+    type(type)
 {}
 
 QByteArray JSonNodeSerializer::toByteArray(const NodePtr& node) const
 {
     QJsonDocument document(this->toJSonObject(node));
-    return document.toJson( isCompact ?
-                                QJsonDocument::Compact :
-                                QJsonDocument::Indented);
+
+    switch (type)
+    {
+    case JSonSerializationType::CompactText:
+        return document.toJson(QJsonDocument::Compact);
+    case JSonSerializationType::IndentedText:
+        return document.toJson(QJsonDocument::Indented);
+    case JSonSerializationType::Binary:
+        return document.toBinaryData();
+    }
+    return QByteArray();
 }
 
 NodePtr JSonNodeSerializer::fromByteArray(const QByteArray& array) const
 {
-    return this->fromJSonObject(QJsonDocument::fromJson(array).object());
+    return this->fromJSonObject((type == JSonSerializationType::Binary ?
+                                    QJsonDocument::fromBinaryData(array) :
+                                    QJsonDocument::fromJson(array)).object());
 }
 
 QJsonObject JSonNodeSerializer::toJSonObject(const NodePtr& node) const
