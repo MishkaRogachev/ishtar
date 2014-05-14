@@ -25,6 +25,7 @@ set(SOURCES
     sources/situation/geometry.cpp
     sources/situation/bounding_box.cpp
     sources/situation/node.cpp
+    sources/situation/node_serializer/i_node_serializer.cpp
 )
 
 # Add compiler flags
