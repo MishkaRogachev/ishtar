@@ -5,7 +5,7 @@ cmake_minimum_required(VERSION 2.8.11)
 project(core_tests)
 
 # Test executable output path
-set(EXECUTABLE_OUTPUT_PATH ${CMAKE_BINARY_DIR}/../result/tests)
+set(EXECUTABLE_OUTPUT_PATH ${CMAKE_SOURCE_DIR}/result/tests)
 
 # Find includes in corresponding build directories
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
@@ -18,15 +18,12 @@ find_package(Qt5 COMPONENTS Core Test REQUIRED)
 # Includes
 include_directories(
     ../../core/sources/situation
-    ../../common
     unit_tests/situation/
 )
 
 # Test Sources
 set(TEST_SOURCES
     core_tests.cpp
-    unit_tests/situation/map_test.cpp
-    unit_tests/situation/layer_test.cpp
     unit_tests/situation/node_test.cpp
 )
 

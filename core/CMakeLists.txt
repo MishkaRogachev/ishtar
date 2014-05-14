@@ -5,7 +5,7 @@ cmake_minimum_required(VERSION 2.8.11)
 project(core)
 
 # Library output path
-set(LIBRARY_OUTPUT_PATH ${CMAKE_BINARY_DIR}/../result)
+set(LIBRARY_OUTPUT_PATH ${CMAKE_SOURCE_DIR}/result)
 
 # Find includes in corresponding build directories
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
@@ -18,13 +18,13 @@ find_package(Qt5 COMPONENTS Core REQUIRED)
 # Includes
 include_directories(
     sources/situation
-    ../common
 )
 
 # Sources
 set(SOURCES
-    sources/situation/map.cpp
-    sources/situation/layer.cpp
+    sources/situation/point.cpp
+    sources/situation/geometry.cpp
+    sources/situation/bounding_box.cpp
     sources/situation/node.cpp
 )
 
