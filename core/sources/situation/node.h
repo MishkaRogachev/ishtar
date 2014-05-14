@@ -3,6 +3,9 @@
 
 #include "situation_traits.h"
 
+#include "geometry.h"
+#include "bounding_box.h"
+
 namespace situation
 {
     class Node
@@ -11,8 +14,19 @@ namespace situation
         Node();
         virtual ~Node();
 
-    private:
+        Geometry geometry() const;
+        void setGeometry(const Geometry& geometry);
 
+        BoundingBox boundingBox() const;
+        void setBoundingBox(const BoundingBox& boundingBox);
+
+        NodePtrList childrenNodes() const;
+        NodePtrList& rChildrenNodes();
+
+    private:
+        Geometry m_geometry;
+        BoundingBox m_boundingBox;
+        NodePtrList m_childrenNodes;
     };
 }
 
