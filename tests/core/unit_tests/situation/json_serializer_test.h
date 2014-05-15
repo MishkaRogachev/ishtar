@@ -8,10 +8,11 @@ class JSonSerializerTest: public QObject
     Q_OBJECT
 
 private slots:
-    void jsonTextSerialization();
-    void jsonBinarySerialization();
-    void byteArraySerialization();
-    void saveAndLoad();
+    void loadFromFile();
+//    void jsonTextSerialization();
+//    void jsonBinarySerialization();
+//    void byteArraySerialization();
+//    void saveAndLoad();
 };
 
 #endif // JSON_SERIALIZER_TEST_H

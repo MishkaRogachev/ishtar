@@ -24,13 +24,8 @@ NodePtr INodeSerializer::load(const QString& name) const
 
     if (file.open(QIODevice::ReadOnly | QIODevice::Text))
     {
-        QTextStream in(&file);
-        QByteArray data;
-        in >> data;
-        return this->fromByteArray(data);
+        return this->fromByteArray(file.readAll());
     }
 
     return NodePtr();
-
-
 }

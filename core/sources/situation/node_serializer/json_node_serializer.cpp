@@ -56,19 +56,9 @@ QJsonObject JSonNodeSerializer::toJSonObject(const NodePtr& node) const
 
     QJsonObject nodeJSon;
 
-    nodeJSon.insert(keys::type, node->childNodes().isEmpty() ?
-                        keys::feature :
-                        keys::featureCollection);
-
     if (!node->id().isEmpty())
     {
         nodeJSon.insert(keys::id, node->id());
-    }
-
-    if (node->geometry())
-    {
-        nodeJSon.insert(keys::geometry,
-                        JSonGeometryParser::parseGeometry(node->geometry()));
     }
 
     if (node->boundingBox())
@@ -86,8 +76,16 @@ QJsonObject JSonNodeSerializer::toJSonObject(const NodePtr& node) const
         nodeJSon.insert(keys::bBox, bBoxJSon);
     }
 
+    if (node->geometry())
+    {
+        nodeJSon.insert(keys::geometry,
+                        JSonGeometryParser::parseGeometry(node->geometry()));
+    }
+
     if (!node->childNodes().isEmpty())
     {
+        nodeJSon.insert(keys::type, keys::featureCollection);
+
         QJsonArray childNodeArrayJSon;
 
         for (const NodePtr& childNode: node->childNodes())
@@ -97,6 +95,10 @@ QJsonObject JSonNodeSerializer::toJSonObject(const NodePtr& node) const
 
         nodeJSon.insert(keys::features, childNodeArrayJSon);
     }
+    else
+    {
+        nodeJSon.insert(keys::type, keys::feature);
+    }
 
     return nodeJSon;
 }
@@ -104,10 +106,39 @@ QJsonObject JSonNodeSerializer::toJSonObject(const NodePtr& node) const
 NodePtr JSonNodeSerializer::fromJSonObject(const QJsonObject& object) const
 {
     NodePtr node(new Node());
+
     node->setId(object.value(keys::id).toString());
 
-    node->setGeometry(JSonGeometryParser::parseJson(
-                          object.value(keys::geometry).toObject()));
+    const QJsonArray& bBoxArray = object.value(keys::bBox).toArray();
+    if (bBoxArray.count() == 6)
+    {
+        node->setBoundingBox(BoundingBoxPtr(
+                                 new BoundingBox(bBoxArray.at(0).toDouble(),
+                                                 bBoxArray.at(1).toDouble(),
+                                                 bBoxArray.at(2).toDouble(),
+                                                 bBoxArray.at(3).toDouble(),
+                                                 bBoxArray.at(4).toDouble(),
+                                                 bBoxArray.at(5).toDouble())));
+    }
+
+    const QJsonObject& geometryObject = object.value(keys::geometry).toObject();
+    if (!geometryObject.isEmpty())
+    {
+        node->setGeometry(JSonGeometryParser::parseJson(geometryObject));
+    }
+
+    const QJsonArray& childArray =
+            object.value(keys::features).toArray();
+
+    if (!childArray.isEmpty())
+    {
+        NodePtrList childList;
+        for(const QJsonValue& child: childArray)
+        {
+            childList.append(this->fromJSonObject(child.toObject()));
+        }
+        node->setChildNodes(childList);
+    }
 
     return node;
 }

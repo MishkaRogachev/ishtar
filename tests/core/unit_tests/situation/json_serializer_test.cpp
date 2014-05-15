@@ -9,61 +9,16 @@
 
 using namespace situation;
 
-NodePtr buildTestNode()
-{
-    GeometryPtr pointGeometry(new Geometry(GeometryType::Line,
-                                  {{
-                                      QVector3D(2.0, 3.0, 1.5),
-                                      QVector3D(3.5, -1.0, 0.5)
-                                  }}));
-
-    BoundingBoxPtr bbox(new BoundingBox(2.0, -1.0, 0.5, 3.5, 3.0, 1.5));
-
-    NodePtr rootNode(new Node("root"));
-    rootNode->setChildNodes( {
-                                 NodePtr(new Node("line", pointGeometry, bbox))
-                             } );
-
-    return rootNode;
-}
-
-void JSonSerializerTest::jsonTextSerialization()
+void JSonSerializerTest::loadFromFile()
 {
     JSonNodeSerializer serializer;
 
-    NodePtr node = buildTestNode();
-    NodePtr node2 = serializer.fromJSonObject(serializer.toJSonObject(node));
+    NodePtr node = serializer.load("test.json");
 
-    QVERIFY(node->isEqual(*node2));
-}
-
-void JSonSerializerTest::jsonBinarySerialization()
-{
-    JSonNodeSerializer serializer(JSonSerializationType::Binary);
-
-    NodePtr node = buildTestNode();
-    NodePtr node2 = serializer.fromJSonObject(serializer.toJSonObject(node));
-
-    QVERIFY(node->isEqual(*node2));
-}
-
-void JSonSerializerTest::byteArraySerialization()
-{
-    JSonNodeSerializer serializer;
-
-    NodePtr node = buildTestNode();
-    NodePtr node2 = serializer.fromByteArray(serializer.toByteArray(node));
-
-    QVERIFY(node->isEqual(*node2));
-}
-
-void JSonSerializerTest::saveAndLoad()
-{
-    JSonNodeSerializer serializer;
-    NodePtr node = buildTestNode();
-
-    serializer.save(node, "test.json");
-    NodePtr node2 = serializer.load("test.json");
-
-    QVERIFY(node->isEqual(*node2));
+    QVERIFY(node);
+    QVERIFY(node->id() == "root" );
+    QVERIFY(node->boundingBox()->isEqual(BoundingBox(-10,-10, 0, 10, 10, 10)));
+    QVERIFY(node->childNodes().count() == 1);
+    QVERIFY(node->childNodes().first());
+    QVERIFY(node->childNodes().first()->id() == "line");
 }
