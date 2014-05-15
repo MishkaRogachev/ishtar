@@ -29,6 +29,7 @@ namespace situation
         void setProperties(const QVariantMap& properties);
 
         NodePtrList childNodes() const;
+        NodePtrList& rChildNodes();
         void setChildNodes(const NodePtrList& childNodes);
 
         bool isEqual(const Node& other) const;

@@ -8,8 +8,10 @@ class NodeTest: public QObject
     Q_OBJECT
 
 private slots:
-    void equal();
     void copy();
+    void equal();
+    void equalChildren();
+
 };
 
 #endif //SITUATION_NODE_TEST_H

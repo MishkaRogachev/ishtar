@@ -62,6 +62,11 @@ NodePtrList Node::childNodes() const
     return m_childNodes;
 }
 
+NodePtrList& Node::rChildNodes()
+{
+    return m_childNodes;
+}
+
 void Node::setChildNodes(const NodePtrList& childNodes)
 {
     m_childNodes = childNodes;
