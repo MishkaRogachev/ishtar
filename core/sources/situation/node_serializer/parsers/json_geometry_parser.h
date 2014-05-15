@@ -9,11 +9,9 @@ namespace situation
     class JSonGeometryParser
     {
     public:
-        static QJsonObject parseGeometry(const GeometryPtr& geometry);
-        static QString geometryTypeString(const GeometryPtr& geometry);
+        static QJsonObject toJSon(const GeometryPtr& geometry);
 
-        static GeometryPtr parseJson(const QJsonObject& object);
-
+        static GeometryPtr toGeometry(const QJsonObject& object);
     };
 }
 

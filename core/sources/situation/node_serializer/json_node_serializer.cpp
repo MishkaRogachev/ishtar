@@ -79,7 +79,7 @@ QJsonObject JSonNodeSerializer::toJSonObject(const NodePtr& node) const
     if (node->geometry())
     {
         nodeJSon.insert(keys::geometry,
-                        JSonGeometryParser::parseGeometry(node->geometry()));
+                        JSonGeometryParser::toJSon(node->geometry()));
     }
 
     if (!node->childNodes().isEmpty())
@@ -124,7 +124,7 @@ NodePtr JSonNodeSerializer::fromJSonObject(const QJsonObject& object) const
     const QJsonObject& geometryObject = object.value(keys::geometry).toObject();
     if (!geometryObject.isEmpty())
     {
-        node->setGeometry(JSonGeometryParser::parseJson(geometryObject));
+        node->setGeometry(JSonGeometryParser::toGeometry(geometryObject));
     }
 
     const QJsonArray& childArray =

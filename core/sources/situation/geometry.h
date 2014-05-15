@@ -9,7 +9,10 @@ namespace situation
     {
         Point,
         Line,
-        Polygone,
+        Polygon,
+        MultiPoint,
+        MultiLine,
+        MultiPolygon,
         Collection
     };
 

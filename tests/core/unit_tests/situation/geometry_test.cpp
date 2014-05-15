@@ -20,7 +20,7 @@ void GeometryTest::equalType()
     QVERIFY(geo1 == geo2);
 
     geo1.setType(GeometryType::Collection);
-    geo2.setType(GeometryType::Polygone);
+    geo2.setType(GeometryType::Polygon);
 
     QVERIFY(geo1 != geo2);
 
@@ -54,18 +54,18 @@ void GeometryTest::equalChildren()
 
     QVERIFY(root1->isEqual(*root2));
 
-    root1->rChildGeometries().append(GeometryPtr(new Geometry(GeometryType::Polygone)));
+    root1->rChildGeometries().append(GeometryPtr(new Geometry(GeometryType::Polygon)));
     root1->rChildGeometries().append(GeometryPtr(new Geometry(GeometryType::Line)));
 
     QVERIFY(!root1->isEqual(*root2));
 
-    root2->rChildGeometries().append(GeometryPtr(new Geometry(GeometryType::Polygone)));
+    root2->rChildGeometries().append(GeometryPtr(new Geometry(GeometryType::Polygon)));
     root2->rChildGeometries().append(GeometryPtr(new Geometry(GeometryType::Line)));
 
     QVERIFY(root1->isEqual(*root2));
 
     root2->rChildGeometries().last()->rChildGeometries().append(
-                GeometryPtr(new Geometry(GeometryType::Polygone)));
+                GeometryPtr(new Geometry(GeometryType::Polygon)));
 
     QVERIFY(!root1->isEqual(*root2));
 
