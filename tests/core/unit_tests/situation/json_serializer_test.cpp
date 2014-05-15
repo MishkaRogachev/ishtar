@@ -16,9 +16,14 @@ void JSonSerializerTest::loadFromFile()
     NodePtr node = serializer.load("test.json");
 
     QVERIFY(node);
+
     QVERIFY(node->id() == "root" );
+
     QVERIFY(node->boundingBox()->isEqual(BoundingBox(-10,-10, 0, 10, 10, 10)));
-    QVERIFY(node->childNodes().count() == 1);
+
+    QVERIFY(node->childNodes().count() == 2);
     QVERIFY(node->childNodes().first());
     QVERIFY(node->childNodes().first()->id() == "line");
+    QVERIFY(node->childNodes().at(1));
+    QVERIFY(node->childNodes().at(1)->id() == "point");
 }

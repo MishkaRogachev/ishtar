@@ -17,16 +17,17 @@ namespace situation
     {
     public:
         Geometry(GeometryType type = GeometryType::Point,
-                 const QVector3D2Vec& points = QVector3D2Vec());
+                 const QVector3D3Vec& points = QVector3D3Vec());
 
         GeometryType type() const;
         void setType(GeometryType type);
 
         GeometryPtrList childGeometries() const;
         GeometryPtrList& rChildGeometries();
+        void setChildGeometries(const GeometryPtrList& childGeometries);
 
-        QVector3D2Vec points() const;
-        void setPoints(const QVector3D2Vec& points);
+        QVector3D3Vec points() const;
+        void setPoints(const QVector3D3Vec& points);
 
         bool isEqual(const Geometry& other) const;
         inline friend bool operator==(const Geometry& left, const Geometry& right)
@@ -40,7 +41,7 @@ namespace situation
 
     private:
         GeometryType m_type;
-        QVector3D2Vec m_points;
+        QVector3D3Vec m_points;
         GeometryPtrList m_childGeometries;
     };
 }

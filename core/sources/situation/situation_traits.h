@@ -13,7 +13,7 @@ namespace situation
     class BoundingBox;
     class Node;
 
-    typedef QVector< QVector< QVector3D > > QVector3D2Vec;
+    typedef QVector< QVector< QVector < QVector3D > > > QVector3D3Vec;
 
     typedef QSharedPointer<Geometry> GeometryPtr;
     typedef QSharedPointer<BoundingBox> BoundingBoxPtr;

@@ -2,7 +2,7 @@
 
 using namespace situation;
 
-Geometry::Geometry(GeometryType type, const QVector3D2Vec& points):
+Geometry::Geometry(GeometryType type, const QVector3D3Vec& points):
     m_type(type),
     m_points(points)
 {}
@@ -27,12 +27,17 @@ GeometryPtrList& Geometry::rChildGeometries()
     return m_childGeometries;
 }
 
-QVector3D2Vec Geometry::points() const
+void Geometry::setChildGeometries(const GeometryPtrList& childGeometries)
+{
+    m_childGeometries = childGeometries;
+}
+
+QVector3D3Vec Geometry::points() const
 {
     return m_points;
 }
 
-void Geometry::setPoints(const QVector3D2Vec& points)
+void Geometry::setPoints(const QVector3D3Vec& points)
 {
     m_points = points;
 }
