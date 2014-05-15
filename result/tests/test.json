@@ -1,0 +1,24 @@
+{
+    "id": "root",
+    "bbox": [ -10, -10, 0, 10, 10, 10 ],
+    "type": "FeatureCollection",
+    "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+                [ -10, -10, 0 ], [  10, -10, 0 ], [  10,  10, 0 ], [ -10,  10, 0 ]
+            ]
+        ]
+    },
+    "features": [
+        {
+            "id": "line",
+            "type": "Feature",
+            "geometry":  {
+                "type": "LineString",
+                "coordinates": [
+                    [ -10, -10, 0 ], [  10,  10, 0 ]
+                ]
+            }
+        }
+    ]
+}
