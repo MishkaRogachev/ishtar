@@ -33,6 +33,10 @@ namespace situation
         {
             return left.isEqual(right);
         }
+        inline friend bool operator!=(const Geometry& left, const Geometry& right)
+        {
+            return !left.isEqual(right);
+        }
 
     private:
         GeometryType m_type;
