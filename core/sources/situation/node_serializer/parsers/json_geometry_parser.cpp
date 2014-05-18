@@ -71,8 +71,31 @@ namespace
             break;
         case GeometryType::Polygon:
         case GeometryType::MultiLine:
+            for (const QVector<QVector3D>& vector: points.first())
+            {
+                QJsonArray vectorJSon;
+                for (const QVector3D& point: vector)
+                {
+                    vectorJSon.append(::pointsToJSonArray(point));
+                }
+                arrayJSon.append(vectorJSon);
+            }
             break;
         case GeometryType::MultiPolygon:
+            for (const auto& vector2d: points)
+            {
+                QJsonArray vector2dJSon;
+                for (const QVector<QVector3D>& vector: vector2d)
+                {
+                    QJsonArray vectorJSon;
+                    for (const QVector3D& point: vector)
+                    {
+                        vectorJSon.append(::pointsToJSonArray(point));
+                    }
+                    vector2dJSon.append(vectorJSon);
+                }
+                arrayJSon.append(vector2dJSon);
+            }
             break;
         case GeometryType::Collection:
             break;

@@ -20,25 +20,39 @@ void JSonSerializerTest::loadFromFile()
     QVERIFY(node->id() == "root" );
 
     QVERIFY(node->boundingBox());
-    QVERIFY(node->boundingBox()->isEqual(BoundingBox(-10,-10, 0, 10, 10, 10)));
+    QVERIFY(node->boundingBox()->isEqual(BoundingBox(0, 0, 0, 40, 40, 5)));
 
-    QVERIFY(node->childNodes().count() == 2);
+    QVERIFY(node->childNodes().count() == 3);
 
     QVERIFY(node->childNodes().first());
-    QVERIFY(node->childNodes().first()->id() == "line");
+    QVERIFY(node->childNodes().first()->id() == "point");
     QVERIFY(node->childNodes().first()->geometry());
     QVERIFY(node->childNodes().first()->geometry()->type() ==
-            GeometryType::Line);
+            GeometryType::Point);
     QVERIFY(node->childNodes().first()->geometry()->points() ==
-            QVector3D3Vec ({{{QVector3D(-10, -10, 0), QVector3D(10,10,0)}}}));
+            QVector3D3Vec ({{{QVector3D(30, 10, 5)}}}));
 
     QVERIFY(node->childNodes().at(1));
-    QVERIFY(node->childNodes().at(1)->id() == "point");
+    QVERIFY(node->childNodes().at(1)->id() == "line");
     QVERIFY(node->childNodes().at(1)->geometry());
     QVERIFY(node->childNodes().at(1)->geometry()->type() ==
-            GeometryType::Point);
+            GeometryType::Line);
     QVERIFY(node->childNodes().at(1)->geometry()->points() ==
-            QVector3D3Vec ({{{QVector3D(0, -0.5, 0.5)}}}));
+            QVector3D3Vec ({{{QVector3D(30, 10, 0),
+                              QVector3D(10, 30, 0),
+                              QVector3D(40, 40, 0)}}}));
+
+    QVERIFY(node->childNodes().at(2));
+    QVERIFY(node->childNodes().at(2)->id() == "polygon");
+    QVERIFY(node->childNodes().at(2)->geometry());
+    QVERIFY(node->childNodes().at(2)->geometry()->type() ==
+            GeometryType::Polygon);
+    QVERIFY(node->childNodes().at(2)->geometry()->points() ==
+            QVector3D3Vec ({{{QVector3D(30, 10, 5),
+                              QVector3D(40, 40, 5),
+                              QVector3D(20, 40, 5),
+                              QVector3D(10, 20, 5),
+                              QVector3D(30, 10, 5)}}}));
 }
 
 void JSonSerializerTest::saveAndReloadTest()
