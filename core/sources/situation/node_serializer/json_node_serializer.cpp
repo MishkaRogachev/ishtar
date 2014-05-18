@@ -27,9 +27,9 @@ JSonNodeSerializer::JSonNodeSerializer(JSonSerializationType type):
     type(type)
 {}
 
-QByteArray JSonNodeSerializer::toByteArray(const NodePtr& node) const
+QByteArray JSonNodeSerializer::nodePtrToByteArray(const NodePtr& node) const
 {
-    QJsonDocument document(this->toJSonObject(node));
+    QJsonDocument document(this->nodePtrToJSonObject(node));
 
     switch (type)
     {
@@ -43,14 +43,14 @@ QByteArray JSonNodeSerializer::toByteArray(const NodePtr& node) const
     return QByteArray();
 }
 
-NodePtr JSonNodeSerializer::fromByteArray(const QByteArray& array) const
+NodePtr JSonNodeSerializer::byteArrayToNodePtr(const QByteArray& array) const
 {
-    return this->fromJSonObject((type == JSonSerializationType::Binary ?
+    return this->jSonObjectToNodePtr((type == JSonSerializationType::Binary ?
                                     QJsonDocument::fromBinaryData(array) :
                                     QJsonDocument::fromJson(array)).object());
 }
 
-QJsonObject JSonNodeSerializer::toJSonObject(const NodePtr& node) const
+QJsonObject JSonNodeSerializer::nodePtrToJSonObject(const NodePtr& node) const
 {
     if (node.isNull()) return QJsonObject();
 
@@ -90,7 +90,7 @@ QJsonObject JSonNodeSerializer::toJSonObject(const NodePtr& node) const
 
         for (const NodePtr& childNode: node->childNodes())
         {
-            childNodeArrayJSon.append(this->toJSonObject(childNode));
+            childNodeArrayJSon.append(this->nodePtrToJSonObject(childNode));
         }
 
         nodeJSon.insert(keys::features, childNodeArrayJSon);
@@ -103,7 +103,7 @@ QJsonObject JSonNodeSerializer::toJSonObject(const NodePtr& node) const
     return nodeJSon;
 }
 
-NodePtr JSonNodeSerializer::fromJSonObject(const QJsonObject& object) const
+NodePtr JSonNodeSerializer::jSonObjectToNodePtr(const QJsonObject& object) const
 {
     NodePtr node(new Node());
 
@@ -135,7 +135,7 @@ NodePtr JSonNodeSerializer::fromJSonObject(const QJsonObject& object) const
         NodePtrList childList;
         for(const QJsonValue& child: childArray)
         {
-            childList.append(this->fromJSonObject(child.toObject()));
+            childList.append(this->jSonObjectToNodePtr(child.toObject()));
         }
         node->setChildNodes(childList);
     }

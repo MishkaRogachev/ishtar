@@ -20,11 +20,11 @@ namespace situation
         JSonNodeSerializer(JSonSerializationType type =
                 JSonSerializationType::IndentedText);
 
-        virtual QByteArray toByteArray(const NodePtr& node) const override;
-        virtual NodePtr fromByteArray(const QByteArray& array) const override;
+        virtual QByteArray nodePtrToByteArray(const NodePtr& node) const override;
+        virtual NodePtr byteArrayToNodePtr(const QByteArray& array) const override;
 
-        QJsonObject toJSonObject(const NodePtr& node) const;
-        NodePtr fromJSonObject(const QJsonObject& object) const;
+        QJsonObject nodePtrToJSonObject(const NodePtr& node) const;
+        NodePtr jSonObjectToNodePtr(const QJsonObject& object) const;
 
     private:
         JSonSerializationType type;

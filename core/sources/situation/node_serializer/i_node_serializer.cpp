@@ -12,7 +12,7 @@ bool INodeSerializer::save(const NodePtr& node, const QString& name) const
     if (file.open(QFile::WriteOnly | QFile::Truncate))
     {
         QTextStream out(&file);
-        out << this->toByteArray(node);
+        out << this->nodePtrToByteArray(node);
         return true;
     }
     return false;
@@ -24,7 +24,7 @@ NodePtr INodeSerializer::load(const QString& name) const
 
     if (file.open(QIODevice::ReadOnly | QIODevice::Text))
     {
-        return this->fromByteArray(file.readAll());
+        return this->byteArrayToNodePtr(file.readAll());
     }
 
     return NodePtr();

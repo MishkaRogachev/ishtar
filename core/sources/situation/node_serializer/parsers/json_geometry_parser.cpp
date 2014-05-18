@@ -2,6 +2,7 @@
 
 #include <QJsonArray>
 #include <QMap>
+#include <QDebug>
 
 #include "geometry.h"
 
@@ -27,46 +28,37 @@ namespace keys
 
 namespace
 {
-    QJsonArray pointsToJSonArray(const QVector< QVector3D > points)
+//    QJsonArray pointsToJSonArray(const QVector< QVector3D > points)
+//    {
+//        QJsonArray arrayJSon;
+
+//        for (const QVector3D& point: points)
+//        {
+//            QJsonArray pointArray;
+
+//            pointArray.append(point.x());
+//            pointArray.append(point.y());
+//            pointArray.append(point.z());
+
+//            arrayJSon.append(pointArray);
+//        }
+
+//        return arrayJSon;
+//    }
+
+    QVector3D jSonArrayToPoints(const QJsonArray& arrayJSon)
     {
-        QJsonArray arrayJSon;
+        if (arrayJSon.count() < 2) return QVector3D();
 
-        for (const QVector3D& point: points)
-        {
-            QJsonArray pointArray;
+        QVector3D point;
 
-            pointArray.append(point.x());
-            pointArray.append(point.y());
-            pointArray.append(point.z());
+        point.setX(arrayJSon.first().toDouble());
+        point.setY(arrayJSon.at(1).toDouble());
+        if (arrayJSon.count() > 2) point.setZ(arrayJSon.at(2).toDouble());
 
-            arrayJSon.append(pointArray);
-        }
-
-        return arrayJSon;
+        return point;
     }
 
-    QVector< QVector3D > jSonArrayToPoints(const QJsonArray& arrayJSon)
-    {
-        QVector< QVector3D > points;
-
-        for (const QJsonValue& value: arrayJSon)
-        {
-            QJsonArray array = value.toArray();
-
-            if (array.count() < 2) continue;
-
-            QVector3D point;
-
-            point.setX(array.first().toDouble());
-            point.setY(array.at(1).toDouble());
-
-            if (array.count() > 2) point.setZ(array.at(2).toDouble());
-
-            points.append(point);
-        }
-
-        return points;
-    }
 
     QJsonArray pointsToJSonArray(const QVector3D3Vec points,
                                  GeometryType type)
@@ -78,8 +70,28 @@ namespace
     QVector3D3Vec jSonArrayToPoints(const QJsonArray& arrayJSon,
                                     GeometryType type)
     {
-        //TODO:
-            return QVector3D3Vec();
+        QVector3D3Vec points;
+
+        QVector< QVector < QVector3D > > l1Array;
+        QVector < QVector3D >l2Array;
+
+        switch (type) {
+        case GeometryType::Point:
+            l2Array.append(jSonArrayToPoints(arrayJSon));
+            l1Array.append(l2Array);
+            points.append(l1Array);
+            break;
+        case GeometryType::Line:
+            for (const QJsonValue& l2Value: arrayJSon)
+            {
+                l2Array.append(jSonArrayToPoints(l2Value.toArray()));
+            }
+            l1Array.append(l2Array);
+            points.append(l1Array);
+            break;
+        }
+
+        return points;
     }
 }
 

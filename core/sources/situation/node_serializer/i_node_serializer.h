@@ -13,8 +13,8 @@ namespace situation
         bool save(const NodePtr& node, const QString& name) const;
         NodePtr load(const QString& name) const;
 
-        virtual QByteArray toByteArray(const NodePtr& node) const = 0;
-        virtual NodePtr fromByteArray(const QByteArray& array) const = 0;
+        virtual QByteArray nodePtrToByteArray(const NodePtr& node) const = 0;
+        virtual NodePtr byteArrayToNodePtr(const QByteArray& array) const = 0;
     };
 }
 
