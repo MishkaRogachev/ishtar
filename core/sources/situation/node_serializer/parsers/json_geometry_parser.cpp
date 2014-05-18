@@ -28,23 +28,16 @@ namespace keys
 
 namespace
 {
-//    QJsonArray pointsToJSonArray(const QVector< QVector3D > points)
-//    {
-//        QJsonArray arrayJSon;
+    QJsonArray pointsToJSonArray(QVector3D point)
+    {
+        QJsonArray arrayJSon;
 
-//        for (const QVector3D& point: points)
-//        {
-//            QJsonArray pointArray;
+        arrayJSon.append(point.x());
+        arrayJSon.append(point.y());
+        arrayJSon.append(point.z());
 
-//            pointArray.append(point.x());
-//            pointArray.append(point.y());
-//            pointArray.append(point.z());
-
-//            arrayJSon.append(pointArray);
-//        }
-
-//        return arrayJSon;
-//    }
+        return arrayJSon;
+    }
 
     QVector3D jSonArrayToPoints(const QJsonArray& arrayJSon)
     {
@@ -63,8 +56,29 @@ namespace
     QJsonArray pointsToJSonArray(const QVector3D3Vec points,
                                  GeometryType type)
     {
-    //TODO:
-        return QJsonArray();
+        QJsonArray arrayJSon;
+
+        switch (type) {
+        case GeometryType::Point:
+            arrayJSon = ::pointsToJSonArray(points.first().first().first());
+            break;
+        case GeometryType::Line:
+        case GeometryType::MultiPoint:
+                for (const QVector3D& point: points.first().first())
+                {
+                    arrayJSon.append(::pointsToJSonArray(point));
+                }
+            break;
+        case GeometryType::Polygon:
+        case GeometryType::MultiLine:
+            break;
+        case GeometryType::MultiPolygon:
+            break;
+        case GeometryType::Collection:
+            break;
+        }
+
+        return arrayJSon;
     }
 
     QVector3D3Vec jSonArrayToPoints(const QJsonArray& arrayJSon,
@@ -82,12 +96,44 @@ namespace
             points.append(l1Array);
             break;
         case GeometryType::Line:
+        case GeometryType::MultiPoint:
             for (const QJsonValue& l2Value: arrayJSon)
             {
-                l2Array.append(jSonArrayToPoints(l2Value.toArray()));
+                l2Array.append(::jSonArrayToPoints(l2Value.toArray()));
             }
             l1Array.append(l2Array);
             points.append(l1Array);
+            break;
+        case GeometryType::Polygon:
+        case GeometryType::MultiLine:
+            for (const QJsonValue& l1Value: arrayJSon)
+            {
+                QVector < QVector3D >l2Array;
+                for (const QJsonValue& l2Value: l1Value.toArray())
+                {
+                    l2Array.append(jSonArrayToPoints(l2Value.toArray()));
+                }
+                l1Array.append(l2Array);
+            }
+            points.append(l1Array);
+            break;
+        case GeometryType::MultiPolygon:
+            for (const QJsonValue& l0Value: arrayJSon)
+            {
+                QVector < QVector < QVector3D > > l1Array;
+                for (const QJsonValue& l1Value: l0Value.toArray())
+                {
+                    QVector < QVector3D >l2Array;
+                    for (const QJsonValue& l2Value: l1Value.toArray())
+                    {
+                        l2Array.append(jSonArrayToPoints(l2Value.toArray()));
+                    }
+                    l1Array.append(l2Array);
+                }
+                points.append(l1Array);
+            }
+            break;
+        case GeometryType::Collection:
             break;
         }
 

@@ -13,7 +13,7 @@ void JSonSerializerTest::loadFromFile()
 {
     JSonNodeSerializer serializer;
 
-    NodePtr node = serializer.load("test.json");
+    NodePtr node = serializer.load("test.geojson");
 
     QVERIFY(node);
 
@@ -39,4 +39,17 @@ void JSonSerializerTest::loadFromFile()
             GeometryType::Point);
     QVERIFY(node->childNodes().at(1)->geometry()->points() ==
             QVector3D3Vec ({{{QVector3D(0, -0.5, 0.5)}}}));
+}
+
+void JSonSerializerTest::saveAndReloadTest()
+{
+    JSonNodeSerializer serializer;
+
+    NodePtr node = serializer.load("test.geojson");
+
+    serializer.save(node, "tmp.geojson");
+
+    NodePtr node2 = serializer.load("tmp.geojson");
+
+    QVERIFY(node->isEqual(*node2));
 }
