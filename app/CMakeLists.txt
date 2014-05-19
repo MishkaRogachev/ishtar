@@ -18,6 +18,7 @@ find_package(Qt5 COMPONENTS Core Quick 3DQuick REQUIRED)
 # Includes
 include_directories(
     sources
+    ../presentation/sources/view_items
 )
 
 # Sources
@@ -40,5 +41,5 @@ add_definitions(-std=c++11 -Wall -fPIC)
 add_executable(${PROJECT_NAME} ${SOURCES} ${QRC_SOURCES})
 
 # Link Libraries
-set (LIBRARIES core Qt5::Core Qt5::Quick Qt5::3DQuick)
+set (LIBRARIES core presentation Qt5::Core Qt5::Quick Qt5::3DQuick)
 target_link_libraries (${PROJECT_NAME} ${LIBRARIES})

@@ -21,8 +21,6 @@ void JSonSerializerTest::serializePoint()
                         serializer.nodePtrToByteArray(node));
 
     QVERIFY(node->isEqual(*node2));
-
-    if (!serializer.errors().isEmpty()) qDebug() << serializer.errors();
 }
 
 void JSonSerializerTest::serializeLine()
@@ -39,8 +37,6 @@ void JSonSerializerTest::serializeLine()
                         serializer.nodePtrToByteArray(node));
 
     QVERIFY(node->isEqual(*node2));
-
-    if (!serializer.errors().isEmpty()) qDebug() << serializer.errors();
 }
 
 void JSonSerializerTest::serializePolygon()
@@ -65,8 +61,6 @@ void JSonSerializerTest::serializePolygon()
                         serializer.nodePtrToByteArray(node));
 
     QVERIFY(node->isEqual(*node2));
-
-    if (!serializer.errors().isEmpty()) qDebug() << serializer.errors();
 }
 
 void JSonSerializerTest::serializeMultiPoint()
@@ -83,8 +77,6 @@ void JSonSerializerTest::serializeMultiPoint()
                         serializer.nodePtrToByteArray(node));
 
     QVERIFY(node->isEqual(*node2));
-
-    if (!serializer.errors().isEmpty()) qDebug() << serializer.errors();
 }
 
 void JSonSerializerTest::serializeMultiLine()
@@ -107,8 +99,6 @@ void JSonSerializerTest::serializeMultiLine()
                         serializer.nodePtrToByteArray(node));
 
     QVERIFY(node->isEqual(*node2));
-
-    if (!serializer.errors().isEmpty()) qDebug() << serializer.errors();
 }
 
 void JSonSerializerTest::serializeMultiPolygon()
@@ -140,8 +130,6 @@ void JSonSerializerTest::serializeMultiPolygon()
                         serializer.nodePtrToByteArray(node));
 
     QVERIFY(node->isEqual(*node2));
-
-    if (!serializer.errors().isEmpty()) qDebug() << serializer.errors();
 }
 
 void JSonSerializerTest::serializeCollection()
@@ -172,8 +160,6 @@ void JSonSerializerTest::serializeCollection()
                         serializer.nodePtrToByteArray(node));
 
     QVERIFY(node->isEqual(*node2));
-
-    if (!serializer.errors().isEmpty()) qDebug() << serializer.errors();
 }
 
 void JSonSerializerTest::loadFromFile()
@@ -220,8 +206,6 @@ void JSonSerializerTest::loadFromFile()
                               QVector3D(20, 40, 5),
                               QVector3D(10, 20, 5),
                               QVector3D(30, 10, 5)}}}));
-
-    if (!serializer.errors().isEmpty()) qDebug() << serializer.errors();
 }
 
 void JSonSerializerTest::saveAndReload()
@@ -235,6 +219,4 @@ void JSonSerializerTest::saveAndReload()
     NodePtr node2 = serializer.load("tmp.geojson");
 
     QVERIFY(node->isEqual(*node2));
-
-    if (!serializer.errors().isEmpty()) qDebug() << serializer.errors();
 }

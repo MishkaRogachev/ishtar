@@ -29,8 +29,3 @@ NodePtr INodeSerializer::load(const QString& name) const
 
     return NodePtr();
 }
-
-QStringList INodeSerializer::errors() const
-{
-    return m_errors;
-}

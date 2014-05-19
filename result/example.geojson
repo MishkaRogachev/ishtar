@@ -1,0 +1,35 @@
+{
+    "id": "root",
+    "bbox": [ 0, 0, 0, 40, 40, 5 ],
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "id": "point",
+            "type": "Feature",
+            "geometry":{
+                "type": "Point", 
+                "coordinates": [30, 10, 5]
+            }
+        },
+        {
+            "id": "line",
+            "type": "Feature",
+            "geometry":  {
+                "type": "LineString", 
+                "coordinates": [
+                    [30, 10, 0], [10, 30, 0], [40, 40, 0]
+                ]
+            }
+        },
+        {
+            "id": "polygon",
+            "type": "Feature",
+            "geometry": {
+                "type": "Polygon", 
+                "coordinates": [
+                    [[30, 10, 5], [40, 40, 5], [20, 40, 5], [10, 20, 5], [30, 10, 5]]
+                ]
+            }
+        }
+    ]
+}

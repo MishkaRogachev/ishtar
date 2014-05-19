@@ -17,10 +17,6 @@ private slots:
     void serializeCollection();
     void loadFromFile();
     void saveAndReload();
-//    void jsonTextSerialization();
-//    void jsonBinarySerialization();
-//    void byteArraySerialization();
-//    void saveAndLoad();
 };
 
 #endif // JSON_SERIALIZER_TEST_H

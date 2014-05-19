@@ -9,7 +9,7 @@ enable_testing()
 
 # Subprojects
 add_subdirectory(core)
-# add_subdirectory(ui)
+add_subdirectory(presentation)
 add_subdirectory(app)
 
 # Tests

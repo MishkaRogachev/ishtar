@@ -16,11 +16,6 @@ namespace situation
 
         virtual QByteArray nodePtrToByteArray(const NodePtr& node) const = 0;
         virtual NodePtr byteArrayToNodePtr(const QByteArray& array) const = 0;
-
-        QStringList errors() const;
-
-    protected:
-        QStringList m_errors;
     };
 }
 
