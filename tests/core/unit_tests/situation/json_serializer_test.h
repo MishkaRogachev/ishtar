@@ -8,8 +8,15 @@ class JSonSerializerTest: public QObject
     Q_OBJECT
 
 private slots:
+    void serializePoint();
+    void serializeLine();
+    void serializePolygon();
+    void serializeMultiPoint();
+    void serializeMultiLine();
+    void serializeMultiPolygon();
+    void serializeCollection();
     void loadFromFile();
-    void saveAndReloadTest();
+    void saveAndReload();
 //    void jsonTextSerialization();
 //    void jsonBinarySerialization();
 //    void byteArraySerialization();
