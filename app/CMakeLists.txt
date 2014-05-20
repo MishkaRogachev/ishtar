@@ -18,6 +18,7 @@ find_package(Qt5 COMPONENTS Core Quick 3DQuick REQUIRED)
 # Includes
 include_directories(
     sources
+    ../core/sources/situation
     ../presentation/sources/views/situation_node_view
 )
 
