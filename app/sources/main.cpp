@@ -2,14 +2,14 @@
 #include <QQuickView>
 #include <QQmlEngine>
 
-#include "situation_node_view_item.h"
+#include "situation_view_qquick_painted_item.h"
 
 int main(int argc, char *argv[])
 {
     QGuiApplication app(argc, argv);
     QQuickView view;
 
-    qmlRegisterType<presentation::SituationNodeViewItem>("Situation", 1, 0, "SituationNodeView");
+    qmlRegisterType<presentation::SituationViewQQuickPaintedItem>("Situation", 1, 0, "Situation2DView");
 
     view.setSource(QUrl("qrc:/qml/Main.qml"));
     view.setResizeMode(QQuickView::SizeRootObjectToView);

@@ -24,7 +24,10 @@ include_directories(
 
 # Sources
 set(SOURCES
-    sources/view_items/situation_node_view_item.cpp
+    sources/presenters/situation_node_presenter.cpp
+    sources/views/situation_node_view/i_situation_node_view.cpp
+    sources/views/situation_node_view/situation_view_qquick_painted_item.cpp
+    sources/views/situation_node_view/situation_node_view_qquick_item3d.cpp
 )
 
 # Add compiler flags
