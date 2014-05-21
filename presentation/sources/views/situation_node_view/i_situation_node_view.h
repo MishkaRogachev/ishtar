@@ -8,8 +8,8 @@ namespace presentation
     class ISituationNodeView
     {
     public:
-        virtual void setNode(const situation::NodePtr& node) = 0;
-
+        virtual void setRootNode(const situation::NodePtr& root) = 0;
+        virtual void updateNode(const situation::NodePtr& node) = 0;
     };
 }
 

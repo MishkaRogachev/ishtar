@@ -16,6 +16,7 @@ namespace situation
         Collection
     };
 
+    // TODO: propetries
     class Geometry
     {
     public:

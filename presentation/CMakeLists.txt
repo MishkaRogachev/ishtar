@@ -28,6 +28,7 @@ set(SOURCES
     sources/views/situation_node_view/i_situation_node_view.cpp
     sources/views/situation_node_view/situation_view_qquick_painted_item.cpp
     sources/views/situation_node_view/situation_node_view_qquick_item3d.cpp
+    sources/views/situation_node_view/geometry_parsers/draw_path_geometry_parser.cpp
 )
 
 # Add compiler flags

@@ -6,25 +6,14 @@
 #include <QVector>
 
 #include "presenters/situation_node_presenter.h"
-
-#include "node.h"
-
-namespace
-{
-    enum class PaintType
-    {
-        Point,
-        Line,
-        Polygon
-    };
-}
+#include "geometry_parsers/draw_path_geometry_parser.h"
 
 using namespace presentation;
 
 class SituationViewQQuickPaintedItem::SituationViewQQuickPaintedItemPrivate
 {
 public:
-    QMap<QString, QPair< PaintType, QVector <QPointF> >> geometry;
+    NodeDrawMap drawMap;
     SituationNodePresenterPtr presenter;
 };
 
@@ -41,32 +30,35 @@ SituationViewQQuickPaintedItem::~SituationViewQQuickPaintedItem()
     delete d;
 }
 
-void SituationViewQQuickPaintedItem::setNode(const situation::NodePtr& node)
+void SituationViewQQuickPaintedItem::setRootNode(const situation::NodePtr& root)
 {
     //TODO: node to painte geometry data!
     //d->nodeToGeometry(node);
+    DrawPathGeometryParser parser;
+    d->drawMap = parser.generateDrawMap(root);
     this->update();
+}
+
+void SituationViewQQuickPaintedItem::updateNode(const situation::NodePtr& node)
+{
+//    if (node && d->geometry.contains(node->id()))
+//    {
+//        //TODO: update geometry on node
+//        this->update();
+//    }
 }
 
 void presentation::SituationViewQQuickPaintedItem::paint(QPainter* painter)
 {
-    painter->fillRect(QRect(0, 0, this->width(), this->height()), Qt::blue);
-
-    for (auto nodeGeometry: d->geometry.values())
+    //TODO: refactor to self draw(QPainter* painter, Scale* scale) function
+    for (const NodeDrawObject& drawObject: d->drawMap.values())
     {
-        switch (nodeGeometry.first)
+        painter->setPen(drawObject.pen);
+        painter->setBrush(drawObject.brush);
+
+        for (const QPainterPath& path: drawObject.painterPaths)
         {
-        case PaintType::Point:
-            painter->drawPoints(nodeGeometry.second.data(),
-                                nodeGeometry.second.count());
-            break;
-        case PaintType::Line:
-            painter->drawPoints(nodeGeometry.second);
-            break;
-        case PaintType::Polygon:
-            painter->drawPoints(nodeGeometry.second.data(),
-                                nodeGeometry.second.count());
-            break;
+            painter->drawPath(path);
         }
     }
 }

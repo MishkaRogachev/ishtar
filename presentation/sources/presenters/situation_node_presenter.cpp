@@ -1,7 +1,8 @@
 #include "situation_node_presenter.h"
 
-#include "node.h"
+#include <QDebug>
 
+#include "node.h"
 #include "node_serializer/json_node_serializer.h"
 
 using namespace presentation;
@@ -21,9 +22,9 @@ SituationNodePresenter::SituationNodePresenter(ISituationNodeView* view):
     d(new SituationNodePresenterPrivate(view))
 {
     //TODO: demo code
-
     situation::JSonNodeSerializer serializer;
-    d->view->setNode(serializer.load("example.geojson"));
+    d->node = serializer.load("example.geojson");
+    d->view->setRootNode(d->node);
 }
 
 SituationNodePresenter::~SituationNodePresenter()

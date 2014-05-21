@@ -16,7 +16,8 @@ namespace presentation
         explicit SituationViewQQuickPaintedItem(QQuickItem* parent = nullptr);
         virtual ~SituationViewQQuickPaintedItem() override;
 
-        virtual void setNode(const situation::NodePtr& node) override;
+        virtual void setRootNode(const situation::NodePtr& root) override;
+        virtual void updateNode(const situation::NodePtr& node) override;
 
     protected:
         virtual void paint(QPainter* painter) override;
