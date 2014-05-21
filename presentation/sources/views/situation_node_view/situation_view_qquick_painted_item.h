@@ -22,6 +22,8 @@ namespace presentation
     protected:
         virtual void paint(QPainter* painter) override;
 
+        virtual void wheelEvent(QWheelEvent* event) override;
+
     private:
         class SituationViewQQuickPaintedItemPrivate;
         SituationViewQQuickPaintedItemPrivate* d;

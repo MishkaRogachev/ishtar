@@ -15,6 +15,8 @@ namespace presentation
         QList<QPainterPath> painterPaths;
         QPen pen;
         QBrush brush;
+
+        void draw(QPainter* painter) const;
     };
 
     typedef QMap<QString, NodeDrawObject > NodeDrawMap;

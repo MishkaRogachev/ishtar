@@ -1,6 +1,7 @@
 #include "draw_path_geometry_parser.h"
 
 #include <QDebug>
+#include <QPainter>
 
 #include "node.h"
 #include "geometry.h"
@@ -100,6 +101,7 @@ NodeDrawObject DrawPathGeometryParser::nodeToDrawObject(const situation::NodePtr
     {
         object.pen = node->properties().value(keys::pen).value<QPen>();
     }
+    object.pen.setCosmetic(true);
 
     if (node->properties().contains(keys::brush))
     {
@@ -128,4 +130,16 @@ NodeDrawMap DrawPathGeometryParser::generateDrawMap(const situation::NodePtr& no
     }
 
     return map;
+}
+
+void NodeDrawObject::draw(QPainter* painter) const
+{
+    painter->setPen(pen);
+    painter->pen();
+    painter->setBrush(brush);
+
+    for (const QPainterPath& path: painterPaths)
+    {
+        painter->drawPath(path);
+    }
 }

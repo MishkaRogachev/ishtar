@@ -1,9 +1,9 @@
 #include "situation_view_qquick_painted_item.h"
 
+#include <QWheelEvent>
+#include <QMouseEvent>
 #include <QPainter>
-#include <QMap>
-#include <QPair>
-#include <QVector>
+#include <QCursor>
 
 #include "presenters/situation_node_presenter.h"
 #include "geometry_parsers/draw_path_geometry_parser.h"
@@ -23,6 +23,7 @@ SituationViewQQuickPaintedItem::SituationViewQQuickPaintedItem(QQuickItem* paren
     d(new SituationViewQQuickPaintedItemPrivate())
 {
     d->presenter.reset(new SituationNodePresenter(this));
+    this->setCursor(QCursor(Qt::CrossCursor));
 }
 
 SituationViewQQuickPaintedItem::~SituationViewQQuickPaintedItem()
@@ -50,15 +51,29 @@ void SituationViewQQuickPaintedItem::updateNode(const situation::NodePtr& node)
 
 void presentation::SituationViewQQuickPaintedItem::paint(QPainter* painter)
 {
-    //TODO: refactor to self draw(QPainter* painter, Scale* scale) function
+    painter->setTransform(QTransform(m_transformationMatrix));
+
     for (const NodeDrawObject& drawObject: d->drawMap.values())
     {
-        painter->setPen(drawObject.pen);
-        painter->setBrush(drawObject.brush);
-
-        for (const QPainterPath& path: drawObject.painterPaths)
-        {
-            painter->drawPath(path);
-        }
+        drawObject.draw(painter);
     }
+
+    painter->drawRect(10, 10, 550, 480);
+    painter->drawEllipse(QPointF(this->width() / 2,this->height() / 2), 3, 3);
 }
+
+void SituationViewQQuickPaintedItem::wheelEvent(QWheelEvent* event)
+{
+    qreal dS = 1 + (event->delta() / 1200.0d);
+
+    QPointF sp = m_transformationMatrix.inverted().map(
+                     QPointF(event->x(), event->y()));
+
+    m_transformationMatrix.translate(sp.x(), sp.y());
+    m_transformationMatrix.scale(dS, dS);
+    m_transformationMatrix.translate(-sp.x(), -sp.y());
+
+    this->update();
+}
+
+
