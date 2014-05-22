@@ -18,7 +18,9 @@ find_package(Qt5 COMPONENTS Core Gui Test REQUIRED)
 # Includes
 include_directories(
     ../../core/sources/situation
-    unit_tests/situation/
+    ../../core/sources/classification
+    unit_tests/situation
+    unit_tests/classification
 )
 
 # Test Sources
@@ -28,6 +30,8 @@ set(TEST_SOURCES
     unit_tests/situation/json_serializer_test.cpp
     unit_tests/situation/bounding_box_test.cpp
     unit_tests/situation/geometry_test.cpp
+    unit_tests/classification/classifier_test.cpp
+    unit_tests/classification/classifier_serializer_test.cpp
 )
 
 # Add compiler flags

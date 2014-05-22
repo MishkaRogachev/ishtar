@@ -19,6 +19,7 @@ find_package(Qt5 COMPONENTS Core Gui REQUIRED)
 include_directories(
     ../common
     sources/situation
+    sources/classification
 )
 
 # Sources
@@ -29,6 +30,8 @@ set(SOURCES
     sources/situation/node_serializer/i_node_serializer.cpp
     sources/situation/node_serializer/json_node_serializer.cpp
     sources/situation/node_serializer/parsers/json_geometry_parser.cpp
+    sources/classification/classifier.cpp
+    sources/classification/classifier_serializer.cpp
 )
 
 # Add compiler flags

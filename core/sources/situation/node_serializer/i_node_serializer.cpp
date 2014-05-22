@@ -6,26 +6,26 @@
 
 using namespace situation;
 
-bool INodeSerializer::save(const NodePtr& node, const QString& name) const
+bool INodeSerializer::save(const NodePtr& node, const QString& filename) const
 {
-    QFile file(name);
+    QFile file(filename);
 
     if (file.open(QFile::WriteOnly | QFile::Truncate))
     {
         QTextStream out(&file);
-        out << this->nodePtrToByteArray(node);
+        out << this->nodeToByteArray(node);
         return true;
     }
     return false;
 }
 
-NodePtr INodeSerializer::load(const QString& name) const
+NodePtr INodeSerializer::load(const QString& filename) const
 {
-    QFile file(name);
+    QFile file(filename);
 
     if (file.open(QIODevice::ReadOnly | QIODevice::Text))
     {
-        return this->byteArrayToNodePtr(file.readAll());
+        return this->byteArrayToNode(file.readAll());
     }
 
     return NodePtr();

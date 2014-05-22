@@ -8,8 +8,7 @@
 
 namespace keys
 {
-    const QString pen = "pen";
-    const QString brush = "brush";
+    const QString classifier = "classifier";
 }
 
 using namespace presentation;
@@ -36,6 +35,7 @@ QPainterPath DrawPathGeometryParser::geometryToDrawPath(
         break;
     case situation::GeometryType::Line:
     case situation::GeometryType::MultiLine:
+        path.setFillRule(Qt::WindingFill);
         for (const auto& l2: geometry->points())
         {
             for (const auto& l1: l2)
@@ -93,20 +93,14 @@ QList<QPainterPath> DrawPathGeometryParser::geometryToDrawPathList(
     return list;
 }
 
-NodeDrawObject DrawPathGeometryParser::nodeToDrawObject(const situation::NodePtr& node)
+PaintedNodeDrawObject DrawPathGeometryParser::nodeToDrawObject(
+        const situation::NodePtr& node,
+        const classification::ClassifierPtr& classifier)
 {
-    NodeDrawObject object;
+    PaintedNodeDrawObject object;
 
-    if (node->properties().contains(keys::pen))
-    {
-        object.pen = node->properties().value(keys::pen).value<QPen>();
-    }
+    //object.classifierId = node->properties().value(keys::classifier).toString();
     object.pen.setCosmetic(true);
-
-    if (node->properties().contains(keys::brush))
-    {
-        object.brush = node->properties().value(keys::brush).value<QBrush>();
-    }
 
     if (node->geometry())
     {
@@ -116,26 +110,26 @@ NodeDrawObject DrawPathGeometryParser::nodeToDrawObject(const situation::NodePtr
     return object;
 }
 
-NodeDrawMap DrawPathGeometryParser::generateDrawMap(const situation::NodePtr& node)
+PaintedNodeDrawMap DrawPathGeometryParser::generateDrawMap(const situation::NodePtr& node,
+        const classification::ClassifierPtr& classifier)
 {
-    if (node.isNull()) return NodeDrawMap();
+    if (node.isNull()) return PaintedNodeDrawMap();
 
-    NodeDrawMap map;
+    PaintedNodeDrawMap map;
 
-    map.insert(node->id(), this->nodeToDrawObject(node));
+    map.insert(node->id(), this->nodeToDrawObject(node, classifier));
 
     for(const situation::NodePtr& child: node->childNodes())
     {
-        map.unite(this->generateDrawMap(child));
+        map.unite(this->generateDrawMap(child, classifier));
     }
 
     return map;
 }
 
-void NodeDrawObject::draw(QPainter* painter) const
+void PaintedNodeDrawObject::draw(QPainter* painter) const
 {
     painter->setPen(pen);
-    painter->pen();
     painter->setBrush(brush);
 
     for (const QPainterPath& path: painterPaths)

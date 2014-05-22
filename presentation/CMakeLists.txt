@@ -19,6 +19,7 @@ find_package(Qt5 COMPONENTS Core Gui 3DQuick REQUIRED)
 include_directories(
     ../common
     ../core/sources/situation
+    ../core/sources/classification
     sources/
 )
 

@@ -18,6 +18,8 @@ namespace presentation
 
         virtual void setRootNode(const situation::NodePtr& root) override;
         virtual void updateNode(const situation::NodePtr& node) override;
+        virtual void setClassifier(
+                const classification::ClassifierPtr& classifier) override;
 
     protected:
         virtual void paint(QPainter* painter) override;

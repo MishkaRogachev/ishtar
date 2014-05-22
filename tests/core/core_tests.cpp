@@ -5,6 +5,9 @@
 #include "node_test.h"
 #include "json_serializer_test.h"
 
+#include "classifier_test.h"
+#include "classifier_serializer_test.h"
+
 int main(int argc, char *argv[])
 {
     QVector<QObject*> tests;
@@ -12,8 +15,10 @@ int main(int argc, char *argv[])
     tests.append(new GeometryTest());
     tests.append(new BoundingBoxTest());
     tests.append(new NodeTest());
-
     tests.append(new JSonSerializerTest());
+
+    tests.append(new ClassifierTest());
+    tests.append(new ClassifierSerializerTest());
 
     for (QObject* test: tests)
     {

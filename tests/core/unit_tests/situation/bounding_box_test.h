@@ -3,7 +3,7 @@
 
 #include <QTest>
 
-class BoundingBoxTest : public QObject
+class BoundingBoxTest: public QObject
 {
     Q_OBJECT
 

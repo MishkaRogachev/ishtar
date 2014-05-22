@@ -13,8 +13,9 @@ using namespace presentation;
 class SituationViewQQuickPaintedItem::SituationViewQQuickPaintedItemPrivate
 {
 public:
-    NodeDrawMap drawMap;
+    PaintedNodeDrawMap drawMap;
     SituationNodePresenterPtr presenter;
+    classification::ClassifierPtr classifier;
 };
 
 SituationViewQQuickPaintedItem::SituationViewQQuickPaintedItem(QQuickItem* parent) :
@@ -33,33 +34,34 @@ SituationViewQQuickPaintedItem::~SituationViewQQuickPaintedItem()
 
 void SituationViewQQuickPaintedItem::setRootNode(const situation::NodePtr& root)
 {
-    //TODO: node to painte geometry data!
-    //d->nodeToGeometry(node);
     DrawPathGeometryParser parser;
-    d->drawMap = parser.generateDrawMap(root);
+    d->drawMap = parser.generateDrawMap(root, d->classifier);
     this->update();
 }
 
 void SituationViewQQuickPaintedItem::updateNode(const situation::NodePtr& node)
 {
-//    if (node && d->geometry.contains(node->id()))
+//    if (node && d->drawMap.contains(node->id()))
 //    {
 //        //TODO: update geometry on node
 //        this->update();
-//    }
+    //    }
+}
+
+void SituationViewQQuickPaintedItem::setClassifier(
+        const classification::ClassifierPtr& classifier)
+{
+    d->classifier = classifier;
 }
 
 void presentation::SituationViewQQuickPaintedItem::paint(QPainter* painter)
 {
     painter->setTransform(QTransform(m_transformationMatrix));
 
-    for (const NodeDrawObject& drawObject: d->drawMap.values())
+    for (const PaintedNodeDrawObject& drawObject: d->drawMap.values())
     {
         drawObject.draw(painter);
     }
-
-    painter->drawRect(10, 10, 550, 480);
-    painter->drawEllipse(QPointF(this->width() / 2,this->height() / 2), 3, 3);
 }
 
 void SituationViewQQuickPaintedItem::wheelEvent(QWheelEvent* event)

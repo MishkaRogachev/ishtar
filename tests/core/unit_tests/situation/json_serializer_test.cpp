@@ -17,8 +17,8 @@ void JSonSerializerTest::serializePoint()
                  GeometryPtr(new Geometry(GeometryType::Point,
                             QVector3D3Vec({{{ QVector3D(30, 10, 15) }}})))));
 
-    NodePtr node2 = serializer.byteArrayToNodePtr(
-                        serializer.nodePtrToByteArray(node));
+    NodePtr node2 = serializer.byteArrayToNode(
+                        serializer.nodeToByteArray(node));
 
     QVERIFY(node->isEqual(*node2));
 }
@@ -33,8 +33,8 @@ void JSonSerializerTest::serializeLine()
                                               QVector3D(10, 30, 15),
                                               QVector3D(40, 40, 15) }}})))));
 
-    NodePtr node2 = serializer.byteArrayToNodePtr(
-                        serializer.nodePtrToByteArray(node));
+    NodePtr node2 = serializer.byteArrayToNode(
+                        serializer.nodeToByteArray(node));
 
     QVERIFY(node->isEqual(*node2));
 }
@@ -57,8 +57,8 @@ void JSonSerializerTest::serializePolygon()
                                               QVector3D(20, 30, 15) }
                                            }})))));
 
-    NodePtr node2 = serializer.byteArrayToNodePtr(
-                        serializer.nodePtrToByteArray(node));
+    NodePtr node2 = serializer.byteArrayToNode(
+                        serializer.nodeToByteArray(node));
 
     QVERIFY(node->isEqual(*node2));
 }
@@ -73,8 +73,8 @@ void JSonSerializerTest::serializeMultiPoint()
                                               QVector3D(20, 30, 15),
                                               QVector3D(30, 20, 15) }}})))));
 
-    NodePtr node2 = serializer.byteArrayToNodePtr(
-                        serializer.nodePtrToByteArray(node));
+    NodePtr node2 = serializer.byteArrayToNode(
+                        serializer.nodeToByteArray(node));
 
     QVERIFY(node->isEqual(*node2));
 }
@@ -95,8 +95,8 @@ void JSonSerializerTest::serializeMultiLine()
                                               QVector3D(20, 10, 15) }
                                            }})))));
 
-    NodePtr node2 = serializer.byteArrayToNodePtr(
-                        serializer.nodePtrToByteArray(node));
+    NodePtr node2 = serializer.byteArrayToNode(
+                        serializer.nodeToByteArray(node));
 
     QVERIFY(node->isEqual(*node2));
 }
@@ -126,8 +126,8 @@ void JSonSerializerTest::serializeMultiPolygon()
                                            }
                                           })))));
 
-    NodePtr node2 = serializer.byteArrayToNodePtr(
-                        serializer.nodePtrToByteArray(node));
+    NodePtr node2 = serializer.byteArrayToNode(
+                        serializer.nodeToByteArray(node));
 
     QVERIFY(node->isEqual(*node2));
 }
@@ -156,8 +156,8 @@ void JSonSerializerTest::serializeCollection()
     geo->setChildGeometries(geoList);
     node->setGeometry(geo);
 
-    NodePtr node2 = serializer.byteArrayToNodePtr(
-                        serializer.nodePtrToByteArray(node));
+    NodePtr node2 = serializer.byteArrayToNode(
+                        serializer.nodeToByteArray(node));
 
     QVERIFY(node->isEqual(*node2));
 }

@@ -11,11 +11,11 @@ namespace situation
     class INodeSerializer
     {
     public:
-        bool save(const NodePtr& node, const QString& name) const;
-        NodePtr load(const QString& name) const;
+        bool save(const NodePtr& node, const QString& filename) const;
+        NodePtr load(const QString& filename) const;
 
-        virtual QByteArray nodePtrToByteArray(const NodePtr& node) const = 0;
-        virtual NodePtr byteArrayToNodePtr(const QByteArray& array) const = 0;
+        virtual QByteArray nodeToByteArray(const NodePtr& node) const = 0;
+        virtual NodePtr byteArrayToNode(const QByteArray& array) const = 0;
     };
 }
 

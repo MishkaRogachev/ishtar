@@ -4,6 +4,7 @@
 #include <QMatrix>
 
 #include "situation_traits.h"
+#include "classification_traits.h"
 
 namespace presentation
 {
@@ -12,6 +13,7 @@ namespace presentation
     public:
         virtual void setRootNode(const situation::NodePtr& root) = 0;
         virtual void updateNode(const situation::NodePtr& node) = 0;
+        virtual void setClassifier(const classification::ClassifierPtr& hash) = 0;
 
         QMatrix transformationMatrix() const;
 

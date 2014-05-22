@@ -7,27 +7,32 @@
 #include <QBrush>
 
 #include "situation_traits.h"
+#include "classification_traits.h"
 
 namespace presentation
 {
-    struct NodeDrawObject
+    struct PaintedNodeDrawObject
     {
         QList<QPainterPath> painterPaths;
-        QPen pen;
-        QBrush brush;
+        QPen pen = QPen(Qt::darkGray, 0);
+        QBrush brush = QBrush(Qt::gray, Qt::SolidPattern);
 
         void draw(QPainter* painter) const;
     };
 
-    typedef QMap<QString, NodeDrawObject > NodeDrawMap;
+    typedef QMap<QString, PaintedNodeDrawObject > PaintedNodeDrawMap;
 
     class DrawPathGeometryParser
     {
     public:
         QPainterPath geometryToDrawPath(const situation::GeometryPtr& geometry);
-        QList<QPainterPath> geometryToDrawPathList(const situation::GeometryPtr& geometry);
-        NodeDrawObject nodeToDrawObject(const situation::NodePtr& node);
-        NodeDrawMap generateDrawMap(const situation::NodePtr& node);
+        QList<QPainterPath> geometryToDrawPathList(
+                const situation::GeometryPtr& geometry);
+        PaintedNodeDrawObject nodeToDrawObject(const situation::NodePtr& node,
+                const classification::ClassifierPtr& classifier);
+        PaintedNodeDrawMap generateDrawMap(
+                const situation::NodePtr& node,
+                const classification::ClassifierPtr& classifier);
     };
 }
 
