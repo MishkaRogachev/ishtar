@@ -1,5 +1,7 @@
 #include "node_test.h"
 
+#include <QPen>
+
 #include "node.h"
 #include "bounding_box.h"
 #include "geometry.h"
@@ -51,4 +53,22 @@ void NodeTest::equalChildren()
 
     QVERIFY(node1 == node2);
 
+}
+
+
+void NodeTest::equalProperties()
+{
+    Node node1;
+    Node node2;
+
+    QVariantMap properties;
+    properties.insert("pen", QPen(Qt::blue, 2));
+
+    node1.setProperties(properties);
+
+    QVERIFY(node1 != node2);
+
+    node2.setProperties(properties);
+
+    QVERIFY(node1 == node2);
 }

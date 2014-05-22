@@ -18,6 +18,7 @@ namespace keys
     const QString bBox = "bbox";
     const QString geometry = "geometry";
     const QString features = "features";
+    const QString properties = "properties";
 }
 
 using namespace situation;
@@ -76,6 +77,12 @@ QJsonObject JSonNodeSerializer::nodePtrToJSonObject(const NodePtr& node) const
         nodeJSon.insert(keys::bBox, bBoxJSon);
     }
 
+    if (!node->properties().isEmpty())
+    {
+        nodeJSon.insert(keys::properties,
+                        QJsonValue::fromVariant(QVariant(node->properties())));
+    }
+
     if (node->geometry())
     {
         nodeJSon.insert(keys::geometry,
@@ -120,6 +127,8 @@ NodePtr JSonNodeSerializer::jSonObjectToNodePtr(const QJsonObject& object) const
                                                  bBoxArray.at(4).toDouble(),
                                                  bBoxArray.at(5).toDouble())));
     }
+
+    node->setProperties(object.value(keys::properties).toVariant().toMap());
 
     const QJsonObject& geometryObject = object.value(keys::geometry).toObject();
     if (!geometryObject.isEmpty())

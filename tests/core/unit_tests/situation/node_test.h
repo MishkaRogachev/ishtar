@@ -11,6 +11,7 @@ private slots:
     void copy();
     void equal();
     void equalChildren();
+    void equalProperties();
 
 };
 

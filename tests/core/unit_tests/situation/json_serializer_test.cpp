@@ -220,3 +220,27 @@ void JSonSerializerTest::saveAndReload()
 
     QVERIFY(node->isEqual(*node2));
 }
+
+
+void JSonSerializerTest::properties()
+{
+    JSonNodeSerializer serializer;
+
+    NodePtr node(new Node("line",
+                 GeometryPtr(new Geometry(GeometryType::Line,
+                            QVector3D3Vec({{{ QVector3D(30, 10, 15),
+                                              QVector3D(10, 30, 15),
+                                              QVector3D(40, 40, 15) }}})))));
+
+    QVariantMap properties;
+    properties.insert("type", "road_mainroad2");
+    properties.insert("name", "Centeral Street");
+
+    node->setProperties(properties);
+
+    serializer.save(node, "tmp.geojson");
+
+    NodePtr node2 = serializer.load("tmp.geojson");
+
+    QVERIFY(node->isEqual(*node2));
+}
