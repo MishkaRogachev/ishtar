@@ -20,6 +20,7 @@ class SituationViewQQuickPaintedItem::SituationViewQQuickPaintedItemPrivate
 public:
     SituationNodePresenterPtr presenter;
     SituationNodeDrawerQPainter drawer;
+    QPointF lastMousePosition;
 };
 
 SituationViewQQuickPaintedItem::
@@ -29,7 +30,12 @@ SituationViewQQuickPaintedItem::
     d(new SituationViewQQuickPaintedItemPrivate())
 {
     d->presenter.reset(new SituationNodePresenter(this));
+    this->setFlag(QQuickItem::ItemHasContents, true);
+
     this->setCursor(QCursor(Qt::CrossCursor));
+    this->setAcceptedMouseButtons(Qt::AllButtons);
+    this->setFiltersChildMouseEvents(true);
+    this->setAcceptHoverEvents(true);
 }
 
 SituationViewQQuickPaintedItem::~SituationViewQQuickPaintedItem()
@@ -60,5 +66,34 @@ void SituationViewQQuickPaintedItem::wheelEvent(QWheelEvent* event)
 
     this->update();
 }
+
+void SituationViewQQuickPaintedItem::mouseMoveEvent(QMouseEvent* event)
+{
+    if (d->lastMousePosition.isNull())
+    {
+        d->lastMousePosition = event->pos();
+    }
+    else if (event->buttons() == Qt::LeftButton)
+    {
+        QPointF dPosition = event->pos() - d->lastMousePosition;
+        this->transformationMatrix().translate(
+                    dPosition.x() / this->transformationMatrix().m11(),
+                    dPosition.y() / this->transformationMatrix().m22());
+        this->update();
+    }
+
+    d->lastMousePosition = event->pos();
+}
+
+void SituationViewQQuickPaintedItem::mousePressEvent(QMouseEvent* event)
+{
+    Q_UNUSED(event)
+}
+
+void SituationViewQQuickPaintedItem::mouseReleaseEvent(QMouseEvent* event)
+{
+    d->lastMousePosition = QPointF();
+}
+
 
 

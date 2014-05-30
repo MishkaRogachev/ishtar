@@ -20,7 +20,11 @@ namespace presentation
         virtual ISituationNodeDrawer* drawer() const override;
 
         virtual void paint(QPainter* painter) override;
+
         virtual void wheelEvent(QWheelEvent* event) override;
+        virtual void mouseMoveEvent(QMouseEvent* event) override;
+        virtual void mousePressEvent(QMouseEvent* event) override;
+        virtual void mouseReleaseEvent(QMouseEvent* event) override;
 
     private:
         class SituationViewQQuickPaintedItemPrivate;

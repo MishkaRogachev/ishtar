@@ -2,7 +2,7 @@
 #define CLASSIFICATION_TRAITS_H
 
 #include <QSharedPointer>
-#include <QHash>
+#include <QMap>
 #include <QString>
 
 namespace classification
@@ -10,6 +10,7 @@ namespace classification
     class Classifier;
 
     typedef QSharedPointer<Classifier> ClassifierPtr;
+    typedef QMap<QString, ClassifierPtr> ClassifierPtrMap;
 }
 
 #endif // CLASSIFICATION_TRAITS_H

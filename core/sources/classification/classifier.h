@@ -4,15 +4,21 @@
 #include "classification_traits.h"
 
 #include <QColor>
+#include <QPixmap>
 
 namespace classification
 {
-    //TODO: classifiator value by id
     class Classifier
     {
     public:
-        QColor penColor = Qt::black;
-        QColor brushColor = Qt::black;
+        QColor penColor() const;
+        void setPenColor(const QColor& penColor);
+
+        QColor brushColor() const;
+        void setBrushColor(const QColor& brushColor);
+
+        QPixmap pixmap() const;
+        void setPixmap(const QPixmap& pixmap);
 
         QVariantMap toVariantMap() const;
 
@@ -29,6 +35,11 @@ namespace classification
         {
             return !left.isEqual(right);
         }
+
+    private:
+        QColor m_penColor = Qt::black;
+        QColor m_brushColor = Qt::black;
+        QPixmap m_pixmap;
     };
 }
 
