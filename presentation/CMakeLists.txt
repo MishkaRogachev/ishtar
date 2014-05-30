@@ -31,6 +31,7 @@ set(SOURCES
     sources/views/situation_node_view/situation_node_view_qquick_item3d.cpp
     sources/drawers/situation_node_drawer/i_situation_node_drawer.cpp
     sources/drawers/situation_node_drawer/situation_node_drawer_qpainter.cpp
+    sources/drawers/situation_node_drawer/draw_objects/draw_object_qpainter.cpp
 )
 
 # Add compiler flags

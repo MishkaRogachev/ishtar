@@ -8,6 +8,11 @@
 #include "presenters/situation_node_presenter.h"
 #include "drawers/situation_node_drawer/situation_node_drawer_qpainter.h"
 
+namespace
+{
+    const double mouseWheelDegrees = 1200.0d;
+}
+
 using namespace presentation;
 
 class SituationViewQQuickPaintedItem::SituationViewQQuickPaintedItemPrivate
@@ -32,7 +37,7 @@ SituationViewQQuickPaintedItem::~SituationViewQQuickPaintedItem()
     delete d;
 }
 
-ISituationNodeDrawer*SituationViewQQuickPaintedItem::drawer() const
+ISituationNodeDrawer* SituationViewQQuickPaintedItem::drawer() const
 {
     return &d->drawer;
 }
@@ -44,7 +49,7 @@ void presentation::SituationViewQQuickPaintedItem::paint(QPainter* painter)
 
 void SituationViewQQuickPaintedItem::wheelEvent(QWheelEvent* event)
 {
-    qreal dS = 1 + (event->delta() / 1200.0d);
+    qreal dS = 1 + (event->delta() / ::mouseWheelDegrees);
 
     QPointF sp = this->transformationMatrix().inverted().map(
                      QPointF(event->x(), event->y()));
