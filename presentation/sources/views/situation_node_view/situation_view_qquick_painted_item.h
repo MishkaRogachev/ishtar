@@ -16,14 +16,10 @@ namespace presentation
         explicit SituationViewQQuickPaintedItem(QQuickItem* parent = nullptr);
         virtual ~SituationViewQQuickPaintedItem() override;
 
-        virtual void setRootNode(const situation::NodePtr& root) override;
-        virtual void updateNode(const situation::NodePtr& node) override;
-        virtual void setClassifier(
-                const classification::ClassifierPtr& classifier) override;
-
     protected:
-        virtual void paint(QPainter* painter) override;
+        virtual ISituationNodeDrawer* drawer() const override;
 
+        virtual void paint(QPainter* painter) override;
         virtual void wheelEvent(QWheelEvent* event) override;
 
     private:

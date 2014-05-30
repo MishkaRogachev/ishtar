@@ -6,19 +6,19 @@
 #include <QCursor>
 
 #include "presenters/situation_node_presenter.h"
-#include "geometry_parsers/draw_path_geometry_parser.h"
+#include "drawers/situation_node_drawer/situation_node_drawer_qpainter.h"
 
 using namespace presentation;
 
 class SituationViewQQuickPaintedItem::SituationViewQQuickPaintedItemPrivate
 {
 public:
-    PaintedNodeDrawMap drawMap;
     SituationNodePresenterPtr presenter;
-    classification::ClassifierPtr classifier;
+    SituationNodeDrawerQPainter drawer;
 };
 
-SituationViewQQuickPaintedItem::SituationViewQQuickPaintedItem(QQuickItem* parent) :
+SituationViewQQuickPaintedItem::
+    SituationViewQQuickPaintedItem(QQuickItem* parent):
     QQuickPaintedItem(parent),
     ISituationNodeView(),
     d(new SituationViewQQuickPaintedItemPrivate())
@@ -32,48 +32,26 @@ SituationViewQQuickPaintedItem::~SituationViewQQuickPaintedItem()
     delete d;
 }
 
-void SituationViewQQuickPaintedItem::setRootNode(const situation::NodePtr& root)
+ISituationNodeDrawer*SituationViewQQuickPaintedItem::drawer() const
 {
-    DrawPathGeometryParser parser;
-    d->drawMap = parser.generateDrawMap(root, d->classifier);
-    this->update();
-}
-
-void SituationViewQQuickPaintedItem::updateNode(const situation::NodePtr& node)
-{
-//    if (node && d->drawMap.contains(node->id()))
-//    {
-//        //TODO: update geometry on node
-//        this->update();
-    //    }
-}
-
-void SituationViewQQuickPaintedItem::setClassifier(
-        const classification::ClassifierPtr& classifier)
-{
-    d->classifier = classifier;
+    return &d->drawer;
 }
 
 void presentation::SituationViewQQuickPaintedItem::paint(QPainter* painter)
 {
-    painter->setTransform(QTransform(m_transformationMatrix));
-
-    for (const PaintedNodeDrawObject& drawObject: d->drawMap.values())
-    {
-        drawObject.draw(painter);
-    }
+    d->drawer.draw(painter, this->transformationMatrix());
 }
 
 void SituationViewQQuickPaintedItem::wheelEvent(QWheelEvent* event)
 {
     qreal dS = 1 + (event->delta() / 1200.0d);
 
-    QPointF sp = m_transformationMatrix.inverted().map(
+    QPointF sp = this->transformationMatrix().inverted().map(
                      QPointF(event->x(), event->y()));
 
-    m_transformationMatrix.translate(sp.x(), sp.y());
-    m_transformationMatrix.scale(dS, dS);
-    m_transformationMatrix.translate(-sp.x(), -sp.y());
+    this->transformationMatrix().translate(sp.x(), sp.y());
+    this->transformationMatrix().scale(dS, dS);
+    this->transformationMatrix().translate(-sp.x(), -sp.y());
 
     this->update();
 }

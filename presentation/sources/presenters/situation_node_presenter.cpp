@@ -24,7 +24,7 @@ SituationNodePresenter::SituationNodePresenter(ISituationNodeView* view):
     //TODO: demo code
     situation::JSonNodeSerializer serializer;
     d->node = serializer.load("example.geojson");
-    d->view->setRootNode(d->node);
+    d->view->setNode(d->node);
 }
 
 SituationNodePresenter::~SituationNodePresenter()
