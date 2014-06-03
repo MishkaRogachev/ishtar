@@ -2,6 +2,7 @@
 #define I_SITUATION_NODE_DRAWER_H
 
 #include "situation_traits.h"
+#include "classification_traits.h"
 
 namespace presentation
 {
@@ -12,6 +13,8 @@ namespace presentation
         virtual ~ISituationNodeDrawer();
 
         virtual void setNode(const situation::NodePtr& node) = 0;
+        virtual void setClassifierMap(const classification::ClassifierPtrMap&
+                                      classifierMap) = 0;
     };
 
     typedef QSharedPointer<ISituationNodeDrawer> SituationNodeDrawerPtr;

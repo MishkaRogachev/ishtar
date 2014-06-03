@@ -30,6 +30,12 @@ void ISituationNodeView::setNode(const situation::NodePtr& node)
     this->drawer()->setNode(node);
 }
 
+void ISituationNodeView::setClassifierMap(
+        const classification::ClassifierPtrMap& classifierMap)
+{
+    this->drawer()->setClassifierMap(classifierMap);
+}
+
 QMatrix& ISituationNodeView::transformationMatrix() const
 {
     return d->transformationMatrix;

@@ -4,6 +4,7 @@
 #include <QMap>
 
 #include "situation_traits.h"
+#include "classification_traits.h"
 
 class QPainter;
 
@@ -25,7 +26,8 @@ namespace presentation
         static DrawObjectQPainterMap nodeToDrawObjectQPainterMap(
                 const situation::NodePtr& node);
 
-        void draw(QPainter* painter) const;
+        void draw(QPainter* painter,
+                  const classification::ClassifierPtrMap& classifierMap) const;
 
     private:
         class DrawObjectQPainterPrivate;

@@ -15,6 +15,8 @@ namespace presentation
         ~SituationNodeDrawerQPainter();
 
         virtual void setNode(const situation::NodePtr& node) override;
+        virtual void setClassifierMap(const classification::ClassifierPtrMap&
+                                      classifierMap) override;
 
         void draw(QPainter* painter, const QMatrix& trasformationMatrix);
 

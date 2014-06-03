@@ -11,6 +11,7 @@ class SituationNodeDrawerQPainter::SituationNodeDrawerQPainterPrivate
 {
 public:
     DrawObjectQPainterMap drawMap;
+    classification::ClassifierPtrMap classifierMap;
 };
 
 SituationNodeDrawerQPainter::SituationNodeDrawerQPainter():
@@ -28,6 +29,12 @@ void SituationNodeDrawerQPainter::setNode(const situation::NodePtr& node)
     d->drawMap = DrawObjectQPainter::nodeToDrawObjectQPainterMap(node);
 }
 
+void SituationNodeDrawerQPainter::setClassifierMap(
+        const classification::ClassifierPtrMap& classifierMap)
+{
+    d->classifierMap = classifierMap;
+}
+
 void SituationNodeDrawerQPainter::draw(QPainter* painter,
                                        const QMatrix& trasformationMatrix)
 {
@@ -36,7 +43,7 @@ void SituationNodeDrawerQPainter::draw(QPainter* painter,
 
     for (const DrawObjectQPainter& object: d->drawMap)
     {
-        object.draw(painter);
+        object.draw(painter, d->classifierMap);
     }
 
     painter->restore();

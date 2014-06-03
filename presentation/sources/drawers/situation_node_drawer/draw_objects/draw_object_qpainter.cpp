@@ -1,9 +1,17 @@
 #include "draw_object_qpainter.h"
 
 #include <QPainter>
+#include <QDebug>
 
 #include "node.h"
 #include "geometry.h"
+
+#include "classifier.h"
+
+namespace keys
+{
+    const QString classifier = "classifier";
+}
 
 using namespace presentation;
 
@@ -92,8 +100,7 @@ class DrawObjectQPainter::DrawObjectQPainterPrivate
 {
 public:
     QList<QPainterPath> painterPaths;
-    QPen pen = QPen(Qt::darkGray, 0);
-    QBrush brush = QBrush(Qt::gray, Qt::SolidPattern);
+    QString classifierId;
 };
 
 DrawObjectQPainter::DrawObjectQPainter():
@@ -114,8 +121,8 @@ DrawObjectQPainter DrawObjectQPainter::nodeToDrawObjectQPainter(
 {
     DrawObjectQPainter object;
 
-    //object.classifierId = node->properties().value(keys::classifier).toString();
-    object.d->pen.setCosmetic(true);
+    object.d->classifierId = node->properties().value(
+                                 keys::classifier).toString();
 
     if (node->geometry())
     {
@@ -144,10 +151,30 @@ DrawObjectQPainterMap DrawObjectQPainter::nodeToDrawObjectQPainterMap(
     return map;
 }
 
-void DrawObjectQPainter::draw(QPainter* painter) const
+void DrawObjectQPainter::draw(QPainter* painter,
+                    const classification::ClassifierPtrMap& classifierMap) const
 {
-    painter->setPen(d->pen);
-    painter->setBrush(d->brush);
+    QPen pen;
+    pen.setCosmetic(true);
+
+    QBrush brush(Qt::SolidPattern);
+    brush.setColor(Qt::blue);
+
+    classification::ClassifierPtr classifier =
+            classifierMap.value(d->classifierId);
+    if (classifier)
+    {
+        pen.setColor(classifier->penColor());
+        brush.setColor(classifier->brushColor());
+
+        if (!classifier->textureId().isEmpty())
+        {
+            brush.setTexture(QPixmap(classifier->textureId()));
+        }
+    }
+
+    painter->setPen(pen);
+    painter->setBrush(brush);
 
     for (const QPainterPath& path: d->painterPaths)
     {

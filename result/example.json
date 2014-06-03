@@ -1,4 +1,17 @@
 {
-    "brush_color": "#1AB99A",
-    "pen_color": "#2C3E50"
+    "field": {
+        "brush_color": "#8bc941",
+        "pen_color": "#8bc941",
+        "texture_id": ""
+    },
+    "lake": {
+        "brush_color": "#3498DB",
+        "pen_color": "#3498DB",
+        "texture_id": ""
+    },
+    "road": {
+        "brush_color": "#c4cbcf",
+        "pen_color": "#2c3e50",
+        "texture_id": ""
+    }
 }

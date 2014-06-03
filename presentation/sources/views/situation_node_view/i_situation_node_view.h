@@ -17,6 +17,8 @@ namespace presentation
         ~ISituationNodeView();
 
         void setNode(const situation::NodePtr& node);
+        void setClassifierMap(const classification::ClassifierPtrMap&
+                              classifierMap);
 
     protected:
         QMatrix& transformationMatrix() const;

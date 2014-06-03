@@ -4,6 +4,7 @@
 
 #include "node.h"
 #include "node_serializer/json_node_serializer.h"
+#include "classifier_serializer.h"
 
 using namespace presentation;
 
@@ -22,8 +23,12 @@ SituationNodePresenter::SituationNodePresenter(ISituationNodeView* view):
     d(new SituationNodePresenterPrivate(view))
 {
     //TODO: demo code
-    situation::JSonNodeSerializer serializer;
-    d->node = serializer.load("example.geojson");
+
+    classification::ClassifierSerializer classifierSource;
+    d->view->setClassifierMap(classifierSource.loadMap("example.json"));
+
+    situation::JSonNodeSerializer nodeSource;
+    d->node = nodeSource.load("example.geojson");
     d->view->setNode(d->node);
 }
 
