@@ -7,19 +7,27 @@ namespace keys
 {
     const QString penColor = "pen_color";
     const QString brushColor = "brush_color";
-    const QString pixmap = "pixmap";
+    const QString textureId = "texture_id";
 }
 
 using namespace classification;
 
-QPixmap Classifier::pixmap() const
+Classifier::Classifier(const QColor& penColor,
+                       const QColor& brushColor,
+                       const QString& textureId):
+    m_penColor(penColor),
+    m_brushColor(brushColor),
+    m_textureId(textureId)
+{}
+
+QString Classifier::textureId() const
 {
-    return m_pixmap;
+    return m_textureId;
 }
 
-void Classifier::setPixmap(const QPixmap& pixmap)
+void Classifier::setTextureId(const QString& textureId)
 {
-    m_pixmap = pixmap;
+    m_textureId = textureId;
 }
 
 QColor Classifier::penColor() const
@@ -48,7 +56,7 @@ QVariantMap Classifier::toVariantMap() const
 
     map.insert(keys::penColor, m_penColor);
     map.insert(keys::brushColor, m_brushColor);
-    map.insert(keys::pixmap, m_pixmap);
+    map.insert(keys::textureId, m_textureId);
 
     return map;
 }
@@ -59,16 +67,14 @@ Classifier Classifier::fromVariantMap(const QVariantMap& map)
 
     classifier.m_penColor = map.value(keys::penColor).value<QColor>();
     classifier.m_brushColor = map.value(keys::brushColor).value<QColor>();
-    classifier.m_pixmap = map.value(keys::pixmap).value<QPixmap>();
+    classifier.m_textureId = map.value(keys::textureId).value<QString>();
 
     return classifier;
 }
 
 bool Classifier::isEqual(const Classifier& other) const
 {
-    if (m_penColor != other.m_penColor) return false;
-    if (m_brushColor != other.m_brushColor) return false;
-    if (m_pixmap.toImage() != other.m_pixmap.toImage()) return false;
-
-    return true;
+    return (m_penColor == other.m_penColor &&
+            m_brushColor == other.m_brushColor &&
+            m_textureId == other.m_textureId);
 }

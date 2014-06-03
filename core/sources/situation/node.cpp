@@ -106,5 +106,3 @@ bool Node::isEqual(const Node& other) const
 
     return true;
 }
-
-

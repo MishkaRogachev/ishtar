@@ -10,7 +10,11 @@ class ClassifierSerializerTest: public QObject
 private slots:
     void jsonConversion();
     void byteArrayConversion();
-    void saveAndLoaad();
+    void saveAndLoad();
+
+    void jsonMapConversion();
+    void byteArrayMapConversion();
+    void saveAndLoadMap();
 };
 
 #endif // CLASSIFIER_SERIALIZER_TEST_H

@@ -94,6 +94,3 @@ void SituationViewQQuickPaintedItem::mouseReleaseEvent(QMouseEvent* event)
 {
     d->lastMousePosition = QPointF();
 }
-
-
-

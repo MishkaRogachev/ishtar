@@ -11,17 +11,20 @@ namespace classification
     class Classifier
     {
     public:
+        Classifier(const QColor& penColor = Qt::black,
+                   const QColor& brushColor = Qt::red,
+                   const QString& textureId = QString());
+
         QColor penColor() const;
         void setPenColor(const QColor& penColor);
 
         QColor brushColor() const;
         void setBrushColor(const QColor& brushColor);
 
-        QPixmap pixmap() const;
-        void setPixmap(const QPixmap& pixmap);
+        QString textureId() const;
+        void setTextureId(const QString& textureId);
 
         QVariantMap toVariantMap() const;
-
         static Classifier fromVariantMap(const QVariantMap& map);
 
         bool isEqual(const Classifier& other) const;
@@ -37,9 +40,9 @@ namespace classification
         }
 
     private:
-        QColor m_penColor = Qt::black;
-        QColor m_brushColor = Qt::black;
-        QPixmap m_pixmap;
+        QColor m_penColor;
+        QColor m_brushColor;
+        QString m_textureId;
     };
 }
 

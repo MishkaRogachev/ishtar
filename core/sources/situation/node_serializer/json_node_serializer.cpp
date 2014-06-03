@@ -15,8 +15,8 @@ namespace keys
     const QString feature = "Feature";
     const QString featureCollection = "FeatureCollection";
     const QString id = "id";
-    const QString bBox = "bbox";
     const QString geometry = "geometry";
+    const QString bBox = "bbox";
     const QString features = "features";
     const QString properties = "properties";
 }
