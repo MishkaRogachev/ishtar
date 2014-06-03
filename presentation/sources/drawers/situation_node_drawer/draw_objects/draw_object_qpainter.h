@@ -1,7 +1,7 @@
 #ifndef DRAW_OBJECT_QPAINTER_H
 #define DRAW_OBJECT_QPAINTER_H
 
-#include <QMap>
+#include <QMultiMap>
 
 #include "situation_traits.h"
 #include "classification_traits.h"
@@ -12,7 +12,7 @@ namespace presentation
 {
     class DrawObjectQPainter;
 
-    typedef QMap<QString, DrawObjectQPainter> DrawObjectQPainterMap;
+    typedef QMultiMap<int, DrawObjectQPainter> DrawObjectQPainterMap;
 
     class DrawObjectQPainter
     {

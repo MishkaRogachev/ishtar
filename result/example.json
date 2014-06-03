@@ -4,6 +4,11 @@
         "pen_color": "#8bc941",
         "texture_id": ""
     },
+    "trees": {
+        "brush_color": "#27AE60",
+        "pen_color": "#27AE60",
+        "texture_id": ""
+    },
     "lake": {
         "brush_color": "#3498DB",
         "pen_color": "#3498DB",

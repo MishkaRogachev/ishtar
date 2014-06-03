@@ -11,6 +11,7 @@
 namespace keys
 {
     const QString classifier = "classifier";
+    const QString layer = "layer";
 }
 
 using namespace presentation;
@@ -139,7 +140,7 @@ DrawObjectQPainterMap DrawObjectQPainter::nodeToDrawObjectQPainterMap(
 
     DrawObjectQPainterMap map;
 
-    map.insert(node->id(),
+    map.insert(node->properties().value(keys::layer, 0).toInt(),
                DrawObjectQPainter::nodeToDrawObjectQPainter(node));
 
     for(const situation::NodePtr& child: node->childNodes())

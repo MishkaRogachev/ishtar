@@ -41,9 +41,12 @@ void SituationNodeDrawerQPainter::draw(QPainter* painter,
     painter->save();
     painter->setTransform(QTransform(trasformationMatrix));
 
-    for (const DrawObjectQPainter& object: d->drawMap)
+    for (int layer: d->drawMap.keys())
     {
-        object.draw(painter, d->classifierMap);
+        for (const DrawObjectQPainter& object: d->drawMap.values(layer))
+        {
+            object.draw(painter, d->classifierMap);
+        }
     }
 
     painter->restore();
