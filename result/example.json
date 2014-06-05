@@ -43,8 +43,8 @@
             },
             "cap_style": 16,
             "join_style": 128,
-            "pen_style": 1,
-            "width": 0.00005
+            "pen_style": 0,
+            "width": 0
         }
     },
     "road": {

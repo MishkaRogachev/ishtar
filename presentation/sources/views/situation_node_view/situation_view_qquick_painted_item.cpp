@@ -22,7 +22,7 @@ public:
     SituationNodePresenterPtr presenter;
     SituationNodeDrawerQPainter drawer;
     QPointF lastMousePosition;
-    QLineF touchLine;
+    QLineF lastTouchLine;
 };
 
 SituationViewQQuickPaintedItem::
@@ -57,9 +57,9 @@ void presentation::SituationViewQQuickPaintedItem::paint(QPainter* painter)
     painter->setPen(Qt::cyan);
     painter->setBrush(Qt::cyan);
 
-    if (!d->touchLine.isNull())
+    if (!d->lastTouchLine.isNull())
     {
-        painter->drawLine(d->touchLine);
+        painter->drawLine(d->lastTouchLine);
     }
 }
 
@@ -102,22 +102,23 @@ void SituationViewQQuickPaintedItem::touchEvent(QTouchEvent* event)
 {
     if (event->touchPoints().count() > 1)
     {
-        QLineF line;
-        line.setP1(event->touchPoints().first().pos());
-        line.setP2(event->touchPoints().last().pos());
+        QLineF touchLine;
+        touchLine.setP1(event->touchPoints().first().pos());
+        touchLine.setP2(event->touchPoints().last().pos());
 
-        if (!d->touchLine.isNull())
+        if (!d->lastTouchLine.isNull())
         {
-            this->scaleToPoint(line.length() / d->touchLine.length(),
-                               QPointF((line.p2().x() + line.p1().x()) / 2,
-                                       (line.p2().y() + line.p1().y()) / 2));
+            this->scaleToPoint(touchLine.length() / d->lastTouchLine.length(),
+                        QPointF((touchLine.p2().x() + touchLine.p1().x()) / 2,
+                                (touchLine.p2().y() + touchLine.p1().y()) / 2));
         }
 
-        d->touchLine = line;
+        d->lastTouchLine = touchLine;
     }
     else
     {
-        d->touchLine = QLine();
+        d->lastTouchLine = QLine();
+        QQuickPaintedItem::touchEvent(event);
     }
 
     this->update();
