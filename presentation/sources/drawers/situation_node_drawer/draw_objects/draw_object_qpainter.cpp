@@ -155,22 +155,13 @@ DrawObjectQPainterMap DrawObjectQPainter::nodeToDrawObjectQPainterMap(
 void DrawObjectQPainter::draw(QPainter* painter,
                     const classification::ClassifierPtrMap& classifierMap) const
 {
-    QPen pen;
-
-    QBrush brush;
-
     classification::ClassifierPtr classifier =
             classifierMap.value(d->classifierId);
     if (classifier)
     {
-        pen = classifier->pen();
-        brush = classifier->brush();
+        painter->setPen(classifier->pen());
+        painter->setBrush(classifier->brush());
     }
-
-    pen.setCosmetic(true);
-
-    painter->setPen(pen);
-    painter->setBrush(brush);
 
     for (const QPainterPath& path: d->painterPaths)
     {

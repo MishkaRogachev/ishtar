@@ -2,6 +2,7 @@
 
 #include <QWheelEvent>
 #include <QMouseEvent>
+#include <QTouchEvent>
 #include <QPainter>
 #include <QCursor>
 
@@ -21,6 +22,7 @@ public:
     SituationNodePresenterPtr presenter;
     SituationNodeDrawerQPainter drawer;
     QPointF lastMousePosition;
+    QList<QPointF> touchPoints;
 };
 
 SituationViewQQuickPaintedItem::
@@ -51,6 +53,13 @@ ISituationNodeDrawer* SituationViewQQuickPaintedItem::drawer() const
 void presentation::SituationViewQQuickPaintedItem::paint(QPainter* painter)
 {
     d->drawer.draw(painter, this->transformationMatrix());
+
+    for (const QPointF& point: d->touchPoints)
+    {
+        painter->setPen(Qt::cyan);
+        painter->setBrush(Qt::cyan);
+        painter->drawEllipse(point, 25, 25);
+    }
 }
 
 void SituationViewQQuickPaintedItem::wheelEvent(QWheelEvent* event)
@@ -93,4 +102,15 @@ void SituationViewQQuickPaintedItem::mousePressEvent(QMouseEvent* event)
 void SituationViewQQuickPaintedItem::mouseReleaseEvent(QMouseEvent* event)
 {
     d->lastMousePosition = QPointF();
+}
+
+void presentation::SituationViewQQuickPaintedItem::touchEvent(QTouchEvent* event)
+{
+    d->touchPoints.clear();
+
+    for (const QTouchEvent::TouchPoint& touchPoint: event->touchPoints())
+    {
+        d->touchPoints.append(touchPoint.pos());
+    }
+    this->update();
 }

@@ -25,6 +25,7 @@ namespace presentation
         virtual void mouseMoveEvent(QMouseEvent* event) override;
         virtual void mousePressEvent(QMouseEvent* event) override;
         virtual void mouseReleaseEvent(QMouseEvent* event) override;
+        virtual void touchEvent(QTouchEvent* event) override;
 
     private:
         class SituationViewQQuickPaintedItemPrivate;

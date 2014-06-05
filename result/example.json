@@ -12,7 +12,7 @@
             "cap_style": 16,
             "join_style": 64,
             "pen_style": 1,
-            "width": 4
+            "width": 0
         }
     },
     "trees": {
@@ -26,9 +26,9 @@
                 "color": "#28965D"
             },
             "cap_style": 32,
-            "join_style": 128,
+            "join_style": 64,
             "pen_style": 1,
-            "width": 2
+            "width": 0
         }
     },
     "lake": {
@@ -39,12 +39,12 @@
         "pen": {
             "brush": {
                 "brush_style": 1,
-                "color": "#3498DB"
+                "color": "#D2AF1A"
             },
             "cap_style": 16,
-            "join_style": 64,
+            "join_style": 128,
             "pen_style": 1,
-            "width": 1
+            "width": 0.00005
         }
     },
     "road": {
@@ -54,13 +54,28 @@
             },
         "pen": {
             "brush": {
-                "brush_style": 1,
-                "color": "#2c3e50"
+                "brush_style": 15,
+                "color": "#000000",
+                "gradient": {
+                    "coordinate_mode": 1,
+                    "gradient_type": 0,
+                    "spread": 1,
+                    "stops": [
+                        {
+                            "color": "#E67E22",
+                            "position": 0
+                        },
+                        {
+                            "color": "#F1C40F",
+                            "position": 1
+                        }
+                    ]
+                }
             },
-            "cap_style": 16,
-            "join_style": 64,
+            "cap_style": 32,
+            "join_style": 128,
             "pen_style": 1,
-            "width": 1
+            "width": 0.00003
         }
     }
 }

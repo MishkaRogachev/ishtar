@@ -171,7 +171,7 @@ namespace
         QVariantMap map;
 
         map.insert(keys::brush, ::brushToVariant(pen.brush()));
-        map.insert(keys::width, pen.width());
+        map.insert(keys::width, pen.widthF());
         map.insert(keys::penStyle, static_cast<int>(pen.style()));
         map.insert(keys::capStyle, static_cast<int>(pen.capStyle()));
         map.insert(keys::joinStyle, static_cast<int>(pen.joinStyle()));
