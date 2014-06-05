@@ -42,7 +42,7 @@ QMatrix& ISituationNodeView::transformationMatrix() const
     return d->transformationMatrix;
 }
 
-void ISituationNodeView::scaleToPoint(qreal scale, const QPointF& point)
+void ISituationNodeView::scaleMapToPoint(qreal scale, const QPointF& point)
 {
     QPointF scalePoint = d->transformationMatrix.inverted().map(
                         QPointF(point.x(), point.y()));
@@ -50,4 +50,10 @@ void ISituationNodeView::scaleToPoint(qreal scale, const QPointF& point)
     d->transformationMatrix.translate(scalePoint.x(), scalePoint.y());
     d->transformationMatrix.scale(scale, scale);
     d->transformationMatrix.translate(-scalePoint.x(), -scalePoint.y());
+}
+
+void ISituationNodeView::translateMap(const QPointF& point)
+{
+    d->transformationMatrix.translate(point.x() / d->transformationMatrix.m11(),
+                                      point.y() / d->transformationMatrix.m22());
 }

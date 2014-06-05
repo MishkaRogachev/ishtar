@@ -22,7 +22,7 @@ public:
     SituationNodePresenterPtr presenter;
     SituationNodeDrawerQPainter drawer;
     QPointF lastMousePosition;
-    QLineF lastTouchLine;
+    QLineF oldTouchLine;
 };
 
 SituationViewQQuickPaintedItem::
@@ -57,15 +57,15 @@ void presentation::SituationViewQQuickPaintedItem::paint(QPainter* painter)
     painter->setPen(Qt::cyan);
     painter->setBrush(Qt::cyan);
 
-    if (!d->lastTouchLine.isNull())
+    if (!d->oldTouchLine.isNull())
     {
-        painter->drawLine(d->lastTouchLine);
+        painter->drawLine(d->oldTouchLine);
     }
 }
 
 void SituationViewQQuickPaintedItem::wheelEvent(QWheelEvent* event)
 {
-    this->scaleToPoint(1 + (event->delta() / ::mouseWheelDegrees),
+    this->scaleMapToPoint(1 + (event->delta() / ::mouseWheelDegrees),
                        QPointF(event->x(), event->y()));
     this->update();
 }
@@ -78,10 +78,7 @@ void SituationViewQQuickPaintedItem::mouseMoveEvent(QMouseEvent* event)
     }
     else if (event->buttons() == Qt::LeftButton)
     {
-        QPointF dPosition = event->pos() - d->lastMousePosition;
-        this->transformationMatrix().translate(
-                    dPosition.x() / this->transformationMatrix().m11(),
-                    dPosition.y() / this->transformationMatrix().m22());
+        this->translateMap(event->pos() - d->lastMousePosition);
         this->update();
     }
 
@@ -100,24 +97,33 @@ void SituationViewQQuickPaintedItem::mouseReleaseEvent(QMouseEvent* event)
 
 void SituationViewQQuickPaintedItem::touchEvent(QTouchEvent* event)
 {
-    if (event->touchPoints().count() > 1)
+    if (event->touchPoints().count() == 2)
     {
         QLineF touchLine;
         touchLine.setP1(event->touchPoints().first().pos());
         touchLine.setP2(event->touchPoints().last().pos());
 
-        if (!d->lastTouchLine.isNull())
+        if (!d->oldTouchLine.isNull())
         {
-            this->scaleToPoint(touchLine.length() / d->lastTouchLine.length(),
-                        QPointF((touchLine.p2().x() + touchLine.p1().x()) / 2,
-                                (touchLine.p2().y() + touchLine.p1().y()) / 2));
+            QPointF center((touchLine.p2().x() + touchLine.p1().x()) / 2,
+                           (touchLine.p2().y() + touchLine.p1().y()) / 2);
+
+            QPointF oldCenter((d->oldTouchLine.p2().x() +
+                               d->oldTouchLine.p1().x()) / 2,
+                              (d->oldTouchLine.p2().y() +
+                               d->oldTouchLine.p1().y()) / 2);
+
+            this->translateMap(center - oldCenter);
+            this->scaleMapToPoint(
+                        touchLine.length() / d->oldTouchLine.length(),
+                        center);
         }
 
-        d->lastTouchLine = touchLine;
+        d->oldTouchLine = touchLine;
     }
     else
     {
-        d->lastTouchLine = QLine();
+        d->oldTouchLine = QLine();
         QQuickPaintedItem::touchEvent(event);
     }
 
