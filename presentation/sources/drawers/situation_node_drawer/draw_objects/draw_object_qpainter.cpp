@@ -156,23 +156,18 @@ void DrawObjectQPainter::draw(QPainter* painter,
                     const classification::ClassifierPtrMap& classifierMap) const
 {
     QPen pen;
-    pen.setCosmetic(true);
 
-    QBrush brush(Qt::SolidPattern);
-    brush.setColor(Qt::blue);
+    QBrush brush;
 
     classification::ClassifierPtr classifier =
             classifierMap.value(d->classifierId);
     if (classifier)
     {
-        pen.setColor(classifier->penColor());
-        brush.setColor(classifier->brushColor());
-
-        if (!classifier->textureId().isEmpty())
-        {
-            brush.setTexture(QPixmap(classifier->textureId()));
-        }
+        pen = classifier->pen();
+        brush = classifier->brush();
     }
+
+    pen.setCosmetic(true);
 
     painter->setPen(pen);
     painter->setBrush(brush);

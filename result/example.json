@@ -1,22 +1,66 @@
 {
     "field": {
-        "brush_color": "#8bc941",
-        "pen_color": "#8bc941",
-        "texture_id": ""
+        "brush": {
+                "brush_style": 1,
+                "color": "#8BC941"
+            },
+        "pen": {
+            "brush": {
+                "brush_style": 0,
+                "color": "#8BC941"
+            },
+            "cap_style": 16,
+            "join_style": 64,
+            "pen_style": 1,
+            "width": 4
+        }
     },
     "trees": {
-        "brush_color": "#27AE60",
-        "pen_color": "#27AE60",
-        "texture_id": ""
+        "brush": {
+                "brush_style": 1,
+                "color": "#28965D"
+            },
+        "pen": {
+            "brush": {
+                "brush_style": 1,
+                "color": "#28965D"
+            },
+            "cap_style": 32,
+            "join_style": 128,
+            "pen_style": 1,
+            "width": 2
+        }
     },
     "lake": {
-        "brush_color": "#3498DB",
-        "pen_color": "#3498DB",
-        "texture_id": ""
+        "brush": {
+                "brush_style": 1,
+                "color": "#3498DB"
+            },
+        "pen": {
+            "brush": {
+                "brush_style": 1,
+                "color": "#3498DB"
+            },
+            "cap_style": 16,
+            "join_style": 64,
+            "pen_style": 1,
+            "width": 1
+        }
     },
     "road": {
-        "brush_color": "#c4cbcf",
-        "pen_color": "#2c3e50",
-        "texture_id": ""
+        "brush": {
+                "brush_style": 0,
+                "color": "#000000"
+            },
+        "pen": {
+            "brush": {
+                "brush_style": 1,
+                "color": "#2c3e50"
+            },
+            "cap_style": 16,
+            "join_style": 64,
+            "pen_style": 1,
+            "width": 1
+        }
     }
 }

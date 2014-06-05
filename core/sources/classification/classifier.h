@@ -3,26 +3,21 @@
 
 #include "classification_traits.h"
 
-#include <QColor>
-#include <QPixmap>
+#include <QPen>
+#include <QBrush>
 
 namespace classification
 {
     class Classifier
     {
     public:
-        Classifier(const QColor& penColor = Qt::black,
-                   const QColor& brushColor = Qt::red,
-                   const QString& textureId = QString());
+        Classifier(const QPen& pen = QPen(), const QBrush& brush = QBrush());
 
-        QColor penColor() const;
-        void setPenColor(const QColor& penColor);
+        QPen pen() const;
+        void setPen(const QPen& pen);
 
-        QColor brushColor() const;
-        void setBrushColor(const QColor& brushColor);
-
-        QString textureId() const;
-        void setTextureId(const QString& textureId);
+        QBrush brush() const;
+        void setBrush(const QBrush& brush);
 
         QVariantMap toVariantMap() const;
         static Classifier fromVariantMap(const QVariantMap& map);
@@ -40,9 +35,8 @@ namespace classification
         }
 
     private:
-        QColor m_penColor;
-        QColor m_brushColor;
-        QString m_textureId;
+        QPen m_pen;
+        QBrush m_brush;
     };
 }
 

@@ -79,7 +79,18 @@ void ClassifierSerializerTest::saveAndLoadMap()
     ClassifierSerializer serializer;
 
     ClassifierPtrMap map;
-    map.insert("field", ClassifierPtr(new Classifier(QColor("#8BC941"), QColor("#8BC941"))));
+
+    QLinearGradient gradient;
+    gradient.setColorAt(0, Qt::green);
+    gradient.setColorAt(1, Qt::blue);
+
+    QBrush brush(gradient);
+    brush.setMatrix(QMatrix(0.23, 0.17, 34.0, -0.25, 45.73, -256.7));
+
+    ClassifierPtr classifier1(new Classifier(QColor("#8BC941")));
+    classifier1->setBrush(brush);
+
+    map.insert("field", classifier1);
     map.insert("road", ClassifierPtr(new Classifier(QColor("#2C3E50"), QColor("#C4CBCF"))));
 
     serializer.saveMap(map, "testClassifier.json");

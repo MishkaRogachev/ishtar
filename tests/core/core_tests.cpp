@@ -1,4 +1,5 @@
 #include <QtTest/QtTest>
+#include <QGuiApplication>
 
 #include "geometry_test.h"
 #include "bounding_box_test.h"
@@ -10,6 +11,7 @@
 
 int main(int argc, char *argv[])
 {
+    QGuiApplication app(argc, argv); //Required for gui types
     QVector<QObject*> tests;
 
     tests.append(new GeometryTest());
