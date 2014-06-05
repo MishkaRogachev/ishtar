@@ -22,7 +22,7 @@ public:
     SituationNodePresenterPtr presenter;
     SituationNodeDrawerQPainter drawer;
     QPointF lastMousePosition;
-    QList<QPointF> touchPoints;
+    QLineF touchLine;
 };
 
 SituationViewQQuickPaintedItem::
@@ -54,25 +54,19 @@ void presentation::SituationViewQQuickPaintedItem::paint(QPainter* painter)
 {
     d->drawer.draw(painter, this->transformationMatrix());
 
-    for (const QPointF& point: d->touchPoints)
+    painter->setPen(Qt::cyan);
+    painter->setBrush(Qt::cyan);
+
+    if (!d->touchLine.isNull())
     {
-        painter->setPen(Qt::cyan);
-        painter->setBrush(Qt::cyan);
-        painter->drawEllipse(point, 25, 25);
+        painter->drawLine(d->touchLine);
     }
 }
 
 void SituationViewQQuickPaintedItem::wheelEvent(QWheelEvent* event)
 {
-    qreal dS = 1 + (event->delta() / ::mouseWheelDegrees);
-
-    QPointF sp = this->transformationMatrix().inverted().map(
-                     QPointF(event->x(), event->y()));
-
-    this->transformationMatrix().translate(sp.x(), sp.y());
-    this->transformationMatrix().scale(dS, dS);
-    this->transformationMatrix().translate(-sp.x(), -sp.y());
-
+    this->scaleToPoint(1 + (event->delta() / ::mouseWheelDegrees),
+                       QPointF(event->x(), event->y()));
     this->update();
 }
 
@@ -104,13 +98,27 @@ void SituationViewQQuickPaintedItem::mouseReleaseEvent(QMouseEvent* event)
     d->lastMousePosition = QPointF();
 }
 
-void presentation::SituationViewQQuickPaintedItem::touchEvent(QTouchEvent* event)
+void SituationViewQQuickPaintedItem::touchEvent(QTouchEvent* event)
 {
-    d->touchPoints.clear();
-
-    for (const QTouchEvent::TouchPoint& touchPoint: event->touchPoints())
+    if (event->touchPoints().count() > 1)
     {
-        d->touchPoints.append(touchPoint.pos());
+        QLineF line;
+        line.setP1(event->touchPoints().first().pos());
+        line.setP2(event->touchPoints().last().pos());
+
+        if (!d->touchLine.isNull())
+        {
+            this->scaleToPoint(line.length() / d->touchLine.length(),
+                               QPointF((line.p2().x() + line.p1().x()) / 2,
+                                       (line.p2().y() + line.p1().y()) / 2));
+        }
+
+        d->touchLine = line;
     }
+    else
+    {
+        d->touchLine = QLine();
+    }
+
     this->update();
 }

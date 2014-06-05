@@ -1,6 +1,7 @@
 #include "i_situation_node_view.h"
 
 #include <QMatrix>
+#include <QDebug>
 
 #include "../../drawers/situation_node_drawer/i_situation_node_drawer.h"
 
@@ -41,3 +42,12 @@ QMatrix& ISituationNodeView::transformationMatrix() const
     return d->transformationMatrix;
 }
 
+void ISituationNodeView::scaleToPoint(qreal scale, const QPointF& point)
+{
+    QPointF scalePoint = d->transformationMatrix.inverted().map(
+                        QPointF(point.x(), point.y()));
+
+    d->transformationMatrix.translate(scalePoint.x(), scalePoint.y());
+    d->transformationMatrix.scale(scale, scale);
+    d->transformationMatrix.translate(-scalePoint.x(), -scalePoint.y());
+}

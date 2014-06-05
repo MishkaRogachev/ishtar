@@ -22,6 +22,7 @@ namespace presentation
 
     protected:
         QMatrix& transformationMatrix() const;
+        void scaleToPoint(qreal scale, const QPointF& point);
 
         virtual ISituationNodeDrawer* drawer() const = 0;
 
